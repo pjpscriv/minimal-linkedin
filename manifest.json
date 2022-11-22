@@ -1,20 +1,35 @@
 {
   "name": "Minimal LinkedIn",
   "description": "Minimal theme for LinkedIn",
-  "version": "2.1",
+  "version": "0.1",
   "manifest_version": 3,
   "icons": {
-    "16": "icon_16.png",
-    "48": "icon_48.png",
-    "128": "icon_128.png"
+    "128": "images/icon.png"
   },
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "src/js/background.js"
   },
+  "content_scripts": [
+    {
+      "run_at": "document_end",
+      "matches": ["https://*.linkedin.com/*"],
+      "js": ["src/js/main.js"]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "src/css/minimal.css",
+        "images/icon.svg",
+        "src/pages/nav.html"
+      ],
+      "matches": ["https://*.linkedin.com/*"]
+    }
+  ],
   "permissions": ["storage"],
   "host_permissions": ["*://*.linkedin.com/*"],
   "action": {
-    "default_icon": "icon_16.png",
-    "default_popup": "popup.html"
+    "default_icon": "images/icon.png",
+    "default_popup": "src/pages/index.html"
   }
 }

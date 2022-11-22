@@ -1,0 +1,37 @@
+/* ⬅️ Left Pane */
+
+/* Remove Borders */
+.feed-identity-module__actor-meta {
+    border-bottom: 0px !important;
+}
+
+/* Profile Views/Impressions */
+.feed-identity-module__widgets {
+    display: none !important;
+}
+
+/* Premium Upsell/Premium Dashboard Link */
+.feed-identity-module__anchored-widget {
+    display: none !important;
+}
+
+/* Community Panel */
+.community-panel {
+    display: none !important;
+}
+
+/* Entire sidebar */
+.scaffold-layout__sidebar {
+    display: none !important;
+}
+
+
+/* ➡️ Right Pane */
+aside.scaffold-layout__aside {
+    display: none !important;
+}
+
+/* ✉️ Messaging */
+#msg-overlay {
+    display: none !important;
+}
