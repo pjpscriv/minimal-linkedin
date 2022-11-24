@@ -20,8 +20,13 @@
     {
       "resources": [
         "src/css/minimal.css",
+        "src/pages/nav.html",
         "images/icon.svg",
-        "src/pages/nav.html"
+        "images/nav-home.svg",
+        "images/nav-network.svg",
+        "images/nav-jobs.svg",
+        "images/nav-messages.svg",
+        "images/nav-notifications.svg"
       ],
       "matches": ["https://*.linkedin.com/*"]
     }

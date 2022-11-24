@@ -1,3 +1,74 @@
+/* Nav */
+.global-nav__a11y-menu {
+    display: none !important;
+}
+
+.global-nav {
+    display: none;
+    /* position: relative !important; */
+}
+
+.__ML-nav {
+    background-color: #ffffff;
+    left: 0;
+    padding: 0 2.4rem;
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    z-index: 100;
+    border-bottom: 1px solid #00000014;
+}
+
+.__ML-nav-content {
+    align-items: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 auto;
+    min-height: 100%;
+    width: 1128px;
+}
+
+.__ML-logo {
+    width: 3.5rem;
+    height: 3.5rem;
+}
+
+.__ML-nav-links ul {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3rem;
+}
+
+.__ML-nav-links ul li {
+    list-style: none;
+    /* min-height: 52px; */
+}
+.__ML-nav-links ul li.__ML-nav-active {
+    border-bottom: 2px solid #000;
+}
+.__ML-nav-links ul li a, .__ML-nav-links ul li a:visited {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 1.5rem;
+    font-weight: normal;
+    text-decoration: none;
+    color: #000;
+    min-height: 52px;
+}
+
+
+.__ML-nav-links ul li img {
+    width: 1.8rem;
+    height: 1.8rem;
+}
+
+.__ML-nav-user .global-nav__primary-link {
+    flex-direction: row;
+}
+
 /* ⬅️ Left Pane */
 
 /* Remove Borders */
