@@ -10,53 +10,72 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/dist/css/app.css" />
   </head>
   <body class="bg-[#f3f2ef] font-sans p-4">
     <main
-      class="w-[420px] min-h-screen mx-auto bg-white border border-gray-300 rounded p-4"
+      class="w-[420px] min-h-screen mx-auto bg-white border border-gray-300 rounded"
+      x-data="{
+        config: {
+          minimal_nav: true,
+        }
+      }"
     >
-      <nav class="flex items-center justify-between">
-        <a href="#">
-          <svg
-            class="w-4 h-4"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"
-            />
-          </svg>
+      <nav
+        class="flex gap-2 items-center justify-between border-b border-gray-300 p-4"
+      >
+        <a href="#" class="flex items-center gap-2 flex-shrink-0">
+          <img class="w-4 h-4" src="/images/icon.svg" alt="Minimal LinkedIn" />
+          <h1 class="">Minimal LinkedIn</h1>
         </a>
-        <h1 class="font-bold text-2xl">Minimal LinkedIn</h1>
-        <a href="#">
-          <svg
-            class="w-4 h-4"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z"
-            />
-          </svg>
-        </a>
+        <p class="text-gray-400 text-sm truncate">mohit@mamoria.com</p>
       </nav>
-      <header class="text-center mt-2">
-        <h2>Manage feed width, navigation, and extras.</h2>
-      </header>
+
+      <div class="p-4">
+        <section>
+          <header
+            class="uppercase font-bold text-xs text-gray-400 tracking-wider"
+          >
+            Overall
+          </header>
+          <ul class="mt-4 text-sm">
+            <li class="flex items-center justify-between">
+              <span class="flex items-start gap-2">
+                <img
+                  class="w-5 h-5"
+                  src="/images/config-nav.svg"
+                  alt="Simplify Navigation"
+                />
+                <div>
+                  <p>Simplify Navigation</p>
+                  <!-- <span class="text-xs text-gray-400">Optional help text</span> -->
+                </div>
+              </span>
+
+              <button
+                type="button"
+                class="relative inline-flex h-5 w-10 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                :class="config.minimal_nav ? 'bg-primary' : 'bg-gray-200'"
+                @click="config.minimal_nav = !config.minimal_nav"
+                role="switch"
+                aria-checked="false"
+                aria-labelledby="availability-label"
+                aria-describedby="availability-description"
+              >
+                <span
+                  aria-hidden="true"
+                  class="pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"
+                  :class="config.minimal_nav ? 'translate-x-5' : 'translate-x-0'"
+                ></span>
+              </button>
+              <!-- </div> -->
+            </li>
+          </ul>
+        </section>
+      </div>
     </main>
   </body>
 </html>

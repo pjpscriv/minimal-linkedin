@@ -9,9 +9,12 @@ module.exports = {
         linkedin: {
           DEFAULT: "#0077b5",
         },
+        primary: {
+          DEFAULT: "#0069FE",
+        },
       },
       fontFamily: {
-        sans: ["'Source Sans 3'", ...defaultTheme.fontFamily.sans],
+        sans: ["'IBM Plex Sans'", ...defaultTheme.fontFamily.sans],
       },
     },
   },
