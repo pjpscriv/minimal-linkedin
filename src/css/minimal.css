@@ -1,3 +1,8 @@
+/* Helper */
+.__ML-unhidden {
+    display: initial !important;
+}
+
 /* Nav */
 .global-nav__a11y-menu {
     display: none !important;

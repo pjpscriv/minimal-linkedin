@@ -1,3 +1,12 @@
+const unhideByQuery = (query) => {
+  const nodes = document.querySelectorAll(query);
+  console.log(nodes, "nodes");
+
+  nodes.forEach((node) => {
+    node.classList.add("__ML-unhidden");
+  });
+};
+
 const addStyleSheets = () => {
   const head = document.querySelector("head");
   const mainStylesheet = document.createElement("link");
@@ -115,10 +124,6 @@ const init = () => {
 
     clearInterval(booted);
   }, 100);
-
-  //   setTimeout(() => {
-  //     changeBranding();
-  //   }, 1000);
 };
 
 init();
