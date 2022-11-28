@@ -16,7 +16,7 @@
     {
       "run_at": "document_end",
       "matches": ["https://*.linkedin.com/*"],
-      "js": ["src/js/main.js"]
+      "js": ["src/js/handlers.js", "src/js/main.js"]
     }
   ],
   "web_accessible_resources": [

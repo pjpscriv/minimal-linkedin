@@ -11,41 +11,41 @@ var init = function () {
             collapsible: false,
             options: [
               {
-                key: "nav_simplify",
-                icon: "config-nav.svg",
+                key: "nav:simplify",
+                icon: "config/nav.svg",
                 name: "Simplify Navigation",
                 default: true,
               },
               {
-                key: "left_pane_hide",
-                icon: "config-nav.svg",
+                key: "left_pane:hide",
+                icon: "config/left-pane.svg",
                 name: "Hide Left Pane",
                 default: true,
               },
               {
-                key: "right_pane_hide",
-                icon: "config-nav.svg",
+                key: "right_pane:hide",
+                icon: "config/right-pane.svg",
                 name: "Hide Right Pane",
                 default: true,
               },
               {
-                key: "feed_simplify",
-                icon: "config-nav.svg",
+                key: "feed:simplify",
+                icon: "config/feed.svg",
                 name: "Simplify Feed",
                 default: true,
               },
               {
-                key: "notification_dots_hide",
-                icon: "config-nav.svg",
-                name: "Hide Notification Dots",
-                description:
-                  "Removes the red dots if you have unread notifications",
+                key: "floating_messaging:hide",
+                icon: "config/messages.svg",
+                name: "Hide Floating Messaging",
                 default: true,
               },
               {
-                key: "messages_tab_hide",
-                icon: "config-nav.svg",
-                name: "Hide Messages Tab",
+                key: "notification_dots:hide",
+                icon: "config/notifications.svg",
+                name: "Hide Notification Dots",
+                // description:
+                //   "Removes the red dots if you have unread notifications",
                 default: true,
               },
             ],
@@ -53,67 +53,64 @@ var init = function () {
           {
             name: "Left Pane",
             collapsible: true,
-            is_collapsed: false,
+            is_collapsed: true,
             options: [
               {
-                key: "profile_card_hide",
-                icon: "config-nav.svg",
+                key: "left_pane:profile:hide",
+                icon: "config/person.svg",
                 name: "Hide Profile Card",
                 default: true,
               },
               {
-                key: "left_pane_hide",
-                icon: "config-nav.svg",
-                name: "Hide Left Pane",
+                key: "left_pane:pages:hide",
+                icon: "config/company.svg",
+                name: "Hide Pages",
                 default: true,
               },
               {
-                key: "right_pane_hide",
-                icon: "config-nav.svg",
-                name: "Hide Right Pane",
+                key: "left_pane:extras:hide",
+                icon: "config/community.svg",
+                name: "Hide Extras",
+                description: "Hide Recents, Groups, Events, and other stuff.",
+                default: true,
+              },
+            ],
+          },
+          {
+            name: "Right Pane",
+            collapsible: true,
+            is_collapsed: true,
+            options: [
+              {
+                key: "right_pane:news:hide",
+                icon: "config/news.svg",
+                name: "Hide News",
                 default: true,
               },
               {
-                key: "feed_simplify",
-                icon: "config-nav.svg",
-                name: "Simplify Feed",
+                key: "right_pane:ads:hide",
+                icon: "config/ads.svg",
+                name: "Hide Ads",
                 default: true,
               },
               {
-                key: "notification_dots_hide",
-                icon: "config-nav.svg",
-                name: "Hide Notification Dots",
-                description:
-                  "Removes the red dots if you have unread notifications",
-                default: true,
-              },
-              {
-                key: "messages_tab_hide",
-                icon: "config-nav.svg",
-                name: "Hide Messages Tab",
+                key: "footer:hide",
+                icon: "config/footer.svg",
+                name: "Hide Footer",
                 default: true,
               },
             ],
           },
         ],
       },
-      loadedSettings: "",
 
       init: function () {
-        this.listenToParent();
-
-        this.config.groups.forEach((group) => {
-          group.options.forEach((option) => {
-            if (this.settings[option.key] === undefined) {
-              this.settings[option.key] = option.default;
-            }
-          });
-        });
+        this.loadSettings();
 
         this.$watch("settings", this.onSettingsChange);
       },
 
-      listenToParent: function () {
+      loadSettings: function () {
         window.addEventListener(
           "message",
           (event) => {
@@ -122,10 +119,22 @@ var init = function () {
 
             if (payload.name === "settings:loaded") {
               this.settings = payload.value;
+              this.fillDefaultSettings();
+              this.onSettingsChange(this.settings);
             }
           },
           false
         );
+      },
+
+      fillDefaultSettings: function () {
+        this.config.groups.forEach((group) => {
+          group.options.forEach((option) => {
+            if (this.settings[option.key] === undefined) {
+              this.settings[option.key] = option.default;
+            }
+          });
+        });
       },
 
       onSettingsChange: function (value) {
