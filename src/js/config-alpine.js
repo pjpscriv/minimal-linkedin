@@ -28,26 +28,26 @@ var init = function () {
                 name: "Hide Right Pane",
                 default: true,
               },
-              {
-                key: "feed:simplify",
-                icon: "config/feed.svg",
-                name: "Simplify Feed",
-                default: true,
-              },
+              // {
+              //   key: "feed:simplify",
+              //   icon: "config/feed.svg",
+              //   name: "Simplify Feed",
+              //   default: true,
+              // },
               {
                 key: "floating_messaging:hide",
                 icon: "config/messages.svg",
                 name: "Hide Floating Messaging",
                 default: true,
               },
-              {
-                key: "notification_dots:hide",
-                icon: "config/notifications.svg",
-                name: "Hide Notification Dots",
-                // description:
-                //   "Removes the red dots if you have unread notifications",
-                default: true,
-              },
+              // {
+              //   key: "notification_dots:hide",
+              //   icon: "config/notifications.svg",
+              //   name: "Hide Notification Dots",
+              //   description:
+              //     "Removes the red dots if you have unread notifications",
+              //   default: true,
+              // },
             ],
           },
           {
