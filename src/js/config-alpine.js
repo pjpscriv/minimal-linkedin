@@ -159,6 +159,19 @@ var init = function () {
               },
             ],
           },
+          {
+            name: "Feed",
+            collapsible: true,
+            is_collapsed: false,
+            options: [
+              {
+                key: "feed:ads:hide",
+                icon: "config/ads.svg",
+                name: "Hide Promoted Posts",
+                default: true,
+              },
+            ],
+          },
         ],
       },
 

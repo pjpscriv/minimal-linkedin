@@ -143,3 +143,8 @@ aside.scaffold-layout__aside {
 #msg-overlay {
     display: none !important;
 }
+
+/* 📰  Feed */
+/* div:has(> article [aria-label="View sponsored page"]) {
+    display: none !important;
+} */

@@ -1,10 +1,18 @@
 // HELPERS
+const addStyle = (node, property, value) => {
+  node.style.setProperty(property, value, "important");
+};
+
+const removeStyle = (node, property) => {
+  node.style.removeProperty(property);
+};
+
 const addStyleByQuery = (query, property, value) => {
   if (!query || !property || !value) return;
 
   const nodes = document.querySelectorAll(query);
   nodes.forEach((node) => {
-    node.style.setProperty(property, value, "important");
+    addStyle(node, property, value);
   });
 };
 
@@ -13,9 +21,26 @@ const removeStyleByQuery = (query, property) => {
 
   const nodes = document.querySelectorAll(query);
   nodes.forEach((node) => {
-    node.style.removeProperty(property);
+    removeStyle(node, property);
   });
 };
+
+// Set up the throttler
+const throttle = (fn, delay) => {
+  // Capture the current time
+  let time = Date.now();
+
+  // Here's our logic
+  return () => {
+    if (time + delay - Date.now() <= 0) {
+      // Run the function we've passed to our throttler,
+      // and reset the `time` variable (so we can check again).
+      fn();
+      time = Date.now();
+    }
+  };
+};
+
 // END HELPERS
 
 // NAVIGATION
@@ -225,6 +250,43 @@ const hideFloatingMessaging = (toApply = true) => {
 };
 // END MESSAGING OVERLAY
 
+// FEED
+
+const findAndHidePromotedItems = () => {
+  const nodes = document.querySelectorAll(".update-components-actor");
+  nodes.forEach((node) => {
+    if (node.textContent.includes("Promoted")) {
+      addStyle(node.parentElement, "display", "none");
+    }
+  });
+};
+
+const findAndUnhidePromotedItems = () => {
+  const nodes = document.querySelectorAll(".update-components-actor");
+  nodes.forEach((node) => {
+    if (node.textContent.includes("Promoted")) {
+      removeStyle(node.parentElement, "display");
+    }
+  });
+};
+
+const throttledFindAndHidePromotedItems = throttle(
+  findAndHidePromotedItems,
+  1000
+);
+
+const hideFeedAds = (toApply = true) => {
+  if (!toApply) {
+    findAndUnhidePromotedItems();
+    window.removeEventListener("scroll", throttledFindAndHidePromotedItems);
+  } else {
+    findAndHidePromotedItems();
+    window.addEventListener("scroll", throttledFindAndHidePromotedItems);
+  }
+};
+
+// END FEED
+
 window.handlers = {
   "nav:simplify": simplifyNavbar,
   "nav:labels:hide": hideNavLabels,
@@ -246,4 +308,6 @@ window.handlers = {
   "right_pane:news:hide": hideRightPaneNews,
   "right_pane:ads:hide": hideRightPaneAds,
   "footer:hide": hideFooter,
+
+  "feed:ads:hide": hideFeedAds,
 };
