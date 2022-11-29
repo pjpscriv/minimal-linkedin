@@ -1,20 +1,5 @@
 const PERSISTED_KEY_SETTINGS = "minimalism-settings";
 
-// const changed = (current, previous) => {
-//   if (!current || !previous) return {};
-
-//   const result = {};
-//   const keys = Object.keys(current);
-//   for (let i = 0; i < keys.length; i++) {
-//     let key = keys[i];
-//     console.log(current[key], previous[key]);
-//     if (current[key] === previous[key]) continue;
-
-//     result[key] = current[key];
-//   }
-//   return result;
-// };
-
 var init = function () {
   Alpine.data("minimalism", function () {
     return {
@@ -43,26 +28,18 @@ var init = function () {
                 name: "Hide Right Pane",
                 default: true,
               },
-              // {
-              //   key: "feed:simplify",
-              //   icon: "config/feed.svg",
-              //   name: "Simplify Feed",
-              //   default: true,
-              // },
+              {
+                key: "feed:simplify",
+                icon: "config/feed.svg",
+                name: "Simplify Feed",
+                default: true,
+              },
               {
                 key: "floating_messaging:hide",
                 icon: "config/messages.svg",
                 name: "Hide Floating Messaging",
                 default: true,
               },
-              // {
-              //   key: "notification_dots:hide",
-              //   icon: "config/notifications.svg",
-              //   name: "Hide Notification Dots",
-              //   description:
-              //     "Removes the red dots if you have unread notifications",
-              //   default: true,
-              // },
             ],
           },
           {
@@ -162,12 +139,26 @@ var init = function () {
           {
             name: "Feed",
             collapsible: true,
-            is_collapsed: false,
+            is_collapsed: true,
             options: [
               {
                 key: "feed:ads:hide",
                 icon: "config/ads.svg",
                 name: "Hide Promoted Posts",
+                default: true,
+              },
+              {
+                key: "feed:post_context:hide",
+                icon: "config/description.svg",
+                name: "Hide Post Context",
+                description: "Hide 'Your friend likes this' above posts.",
+                default: true,
+              },
+              {
+                key: "feed:post_author:simplify",
+                icon: "config/person.svg",
+                name: "Simplify Post's Author",
+                description: "Hides the author's bio and post's timestamp.",
                 default: true,
               },
             ],
@@ -219,6 +210,11 @@ var init = function () {
             "right_pane:news:hide",
             "right_pane:ads:hide",
             "footer:hide",
+          ],
+          "feed:simplify": [
+            "feed:ads:hide",
+            "feed:post_context:hide",
+            "feed:post_author:simplify",
           ],
         };
 

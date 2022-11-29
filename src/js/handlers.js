@@ -25,22 +25,6 @@ const removeStyleByQuery = (query, property) => {
   });
 };
 
-// Set up the throttler
-const throttle = (fn, delay) => {
-  // Capture the current time
-  let time = Date.now();
-
-  // Here's our logic
-  return () => {
-    if (time + delay - Date.now() <= 0) {
-      // Run the function we've passed to our throttler,
-      // and reset the `time` variable (so we can check again).
-      fn();
-      time = Date.now();
-    }
-  };
-};
-
 // END HELPERS
 
 // NAVIGATION
@@ -252,36 +236,45 @@ const hideFloatingMessaging = (toApply = true) => {
 
 // FEED
 
-const findAndHidePromotedItems = () => {
-  const nodes = document.querySelectorAll(".update-components-actor");
-  nodes.forEach((node) => {
-    if (node.textContent.includes("Promoted")) {
-      addStyle(node.parentElement, "display", "none");
-    }
-  });
-};
-
-const findAndUnhidePromotedItems = () => {
-  const nodes = document.querySelectorAll(".update-components-actor");
-  nodes.forEach((node) => {
-    if (node.textContent.includes("Promoted")) {
-      removeStyle(node.parentElement, "display");
-    }
-  });
-};
-
-const throttledFindAndHidePromotedItems = throttle(
-  findAndHidePromotedItems,
-  1000
-);
-
 const hideFeedAds = (toApply = true) => {
+  const nodes = document.querySelectorAll(".update-components-actor");
+
+  nodes.forEach((node) => {
+    if (node.textContent.includes("Promoted")) {
+      if (!toApply) {
+        removeStyle(node.parentElement, "display");
+      } else {
+        addStyle(node.parentElement, "display", "none");
+      }
+    }
+  });
+};
+
+const hideFeedPostContext = (toApply) => {
   if (!toApply) {
-    findAndUnhidePromotedItems();
-    window.removeEventListener("scroll", throttledFindAndHidePromotedItems);
+    addStyleByQuery(".update-components-header", "display", "block");
   } else {
-    findAndHidePromotedItems();
-    window.addEventListener("scroll", throttledFindAndHidePromotedItems);
+    removeStyleByQuery(".update-components-header", "display");
+  }
+};
+
+const simplifyFeedPostAuthor = (toApply) => {
+  if (!toApply) {
+    addStyleByQuery(".update-components-actor__meta", "display", "block");
+    addStyleByQuery(
+      ".update-components-actor__description",
+      "display",
+      "block"
+    );
+    addStyleByQuery(
+      ".update-components-actor__sub-description",
+      "display",
+      "block"
+    );
+  } else {
+    removeStyleByQuery(".update-components-actor__meta", "display");
+    removeStyleByQuery(".update-components-actor__description", "display");
+    removeStyleByQuery(".update-components-actor__sub-description", "display");
   }
 };
 
@@ -310,4 +303,6 @@ window.handlers = {
   "footer:hide": hideFooter,
 
   "feed:ads:hide": hideFeedAds,
+  "feed:post_context:hide": hideFeedPostContext,
+  "feed:post_author:simplify": simplifyFeedPostAuthor,
 };

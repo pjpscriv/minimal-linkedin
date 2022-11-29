@@ -145,6 +145,17 @@ aside.scaffold-layout__aside {
 }
 
 /* 📰  Feed */
-/* div:has(> article [aria-label="View sponsored page"]) {
+/* Post Context */
+.update-components-header {
     display: none !important;
-} */
+}
+
+/* Simplify Author Details */
+.update-components-actor__meta {
+    display: flex !important;
+    align-items: center !important;
+}
+
+.update-components-actor__description, .update-components-actor__sub-description {
+    display: none !important;
+}

@@ -1,11 +1,19 @@
-// const addStylesByQuery = (query, property, value) => {
-//   if (!query || !property || !value) return;
+const PERSISTED_KEY_SETTINGS = "minimalism-settings";
 
-//   const nodes = document.querySelectorAll(query);
-//   nodes.forEach((node) => {
-//     node.style[property] = value;
-//   });
-// };
+const throttle = (fn, delay) => {
+  // Capture the current time
+  let time = Date.now();
+
+  // Here's our logic
+  return () => {
+    if (time + delay - Date.now() <= 0) {
+      // Run the function we've passed to our throttler,
+      // and reset the `time` variable (so we can check again).
+      fn();
+      time = Date.now();
+    }
+  };
+};
 
 const addStyleSheets = () => {
   const head = document.querySelector("head");
@@ -29,9 +37,11 @@ const changeBranding = () => {
     });
 };
 
-const applySettings = (settings) => {
+const applySettings = (settings, group) => {
   const keys = Object.keys(settings);
   keys.forEach((key) => {
+    if (!key.startsWith(group)) return;
+
     if (!handlers[key]) return;
 
     const handler = handlers[key];
@@ -39,12 +49,10 @@ const applySettings = (settings) => {
   });
 };
 
-const loadAndApplySettings = () => {
-  const PERSISTED_KEY_SETTINGS = "minimalism-settings";
-
+const loadAndApplySettings = (group = "") => {
   chrome.storage.sync.get([PERSISTED_KEY_SETTINGS], (value) => {
     if (value[PERSISTED_KEY_SETTINGS]) {
-      applySettings(value[PERSISTED_KEY_SETTINGS]);
+      applySettings(value[PERSISTED_KEY_SETTINGS], group);
     }
   });
 };
@@ -55,8 +63,17 @@ const watchSettings = () => {
   });
 };
 
+const watchScroll = () => {
+  window.addEventListener(
+    "scroll",
+    throttle(() => loadAndApplySettings("feed"), 500)
+  );
+};
+
 const init = () => {
   watchSettings();
+
+  watchScroll();
 
   addStyleSheets();
 
