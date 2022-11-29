@@ -1,5 +1,20 @@
 const PERSISTED_KEY_SETTINGS = "minimalism-settings";
 
+// const changed = (current, previous) => {
+//   if (!current || !previous) return {};
+
+//   const result = {};
+//   const keys = Object.keys(current);
+//   for (let i = 0; i < keys.length; i++) {
+//     let key = keys[i];
+//     console.log(current[key], previous[key]);
+//     if (current[key] === previous[key]) continue;
+
+//     result[key] = current[key];
+//   }
+//   return result;
+// };
+
 var init = function () {
   Alpine.data("minimalism", function () {
     return {
@@ -48,6 +63,49 @@ var init = function () {
               //     "Removes the red dots if you have unread notifications",
               //   default: true,
               // },
+            ],
+          },
+          {
+            name: "Navigation",
+            collapsible: true,
+            is_collapsed: true,
+            options: [
+              {
+                key: "nav:labels:hide",
+                icon: "config/label.svg",
+                name: "Hide Labels",
+                default: false,
+              },
+              {
+                key: "nav:home:hide",
+                icon: "nav-home.svg",
+                name: `Hide "Home"`,
+                default: false,
+              },
+              {
+                key: "nav:my_network:hide",
+                icon: "nav-network.svg",
+                name: `Hide "My Network"`,
+                default: false,
+              },
+              {
+                key: "nav:jobs:hide",
+                icon: "nav-jobs.svg",
+                name: `Hide "Jobs"`,
+                default: false,
+              },
+              {
+                key: "nav:messaging:hide",
+                icon: "nav-messages.svg",
+                name: `Hide "Messaging"`,
+                default: false,
+              },
+              {
+                key: "nav:notifications:hide",
+                icon: "nav-notifications.svg",
+                name: `Hide "Notifications"`,
+                default: false,
+              },
             ],
           },
           {
@@ -107,7 +165,7 @@ var init = function () {
       init: function () {
         this.loadSettings();
 
-        this.$watch("settings", this.onSettingsChange);
+        this.$watch("settings", this.onSettingsChange.bind(this));
       },
 
       loadSettings: function () {
@@ -137,8 +195,46 @@ var init = function () {
         });
       },
 
-      onSettingsChange: function (value) {
+      adjustDependableSettings: function (key) {
+        const dependencies = {
+          "left_pane:hide": [
+            "left_pane:profile:hide",
+            "left_pane:pages:hide",
+            "left_pane:extras:hide",
+          ],
+          "right_pane:hide": [
+            "right_pane:news:hide",
+            "right_pane:ads:hide",
+            "footer:hide",
+          ],
+        };
+
+        // 1. When parent is toggled, all children must behave like parent
+        // 2. If any one children is OFF, parent has to be OFF
+
+        Object.keys(dependencies).forEach((depended) => {
+          // if toggled setting is a parent
+          if (depended === key) {
+            // toggle children to be all to be same as parent
+            dependencies[depended].forEach((depending) => {
+              this.settings[depending] = this.settings[key];
+            });
+          }
+
+          // else if toggled setting is a child of this parent
+          else if (dependencies[depended].indexOf(key) !== -1) {
+            // if any children is OFF, turn parent OFF
+            if (!this.settings[key]) {
+              this.settings[depended] = false;
+            }
+          }
+        });
+      },
+
+      onSettingsChange: function (value, oldValue) {
         if (!value) return;
+
+        this.adjustDependableSettings(value, oldValue);
 
         const payload = {
           name: "settings:updated",
@@ -152,6 +248,7 @@ var init = function () {
       },
       toggle: function (key) {
         this.settings[key] = !this.settings[key];
+        this.adjustDependableSettings(key);
       },
     };
   });

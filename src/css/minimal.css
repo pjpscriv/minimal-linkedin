@@ -33,6 +33,10 @@
     width: 1128px;
 }
 
+a:has(.__ML-logo) {
+    display: flex;
+}
+
 .__ML-logo {
     width: 3.5rem;
     height: 3.5rem;
@@ -45,9 +49,12 @@
     gap: 3rem;
 }
 
+.__ML-nav-label {
+    display: none;
+}
+
 .__ML-nav-links ul li {
     list-style: none;
-    /* min-height: 52px; */
 }
 .__ML-nav-links ul li.__ML-nav-active {
     border-bottom: 2px solid #000;

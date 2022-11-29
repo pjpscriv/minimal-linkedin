@@ -58,6 +58,9 @@ const addUserMenutoNavbar = (nav) => {
     return;
   }
 
+  //   const originalUserMenuCloned = originalUserMenu.cloneNode(true);
+  //   originalUserMenuCloned.addEventListener('click', originalUserMenu.onclick)
+
   const originalUserMenuLabel = originalUserMenu.getElementsByClassName(
     "global-nav__primary-link-text"
   )[0];
@@ -65,6 +68,7 @@ const addUserMenutoNavbar = (nav) => {
     return;
   }
 
+  // Remove the text "Me"
   let menuLabelChild = originalUserMenuLabel.firstChild;
   while (menuLabelChild) {
     let nextChild = menuLabelChild.nextSibling;
@@ -89,24 +93,49 @@ const prepareNavbar = (html) => {
   return nav;
 };
 
+const addSimpleNavbar = () => {
+  //   already exists
+  if (document.querySelectorAll("header:has(> .__ML-nav)").length > 0) return;
+
+  fetch(chrome.runtime.getURL("src/pages/nav.html"))
+    .then((response) => response.text())
+    .then((html) => {
+      const preparedNav = prepareNavbar(html);
+      let nav = document.getElementById("global-nav");
+      //   nav.parentNode.replaceChild(preparedNav, nav);
+      nav.parentNode.insertBefore(preparedNav, nav);
+    });
+};
+
 const simplifyNavbar = (toApply = true) => {
   if (!toApply) {
-    addStyleByQuery(".__ML-nav", "display", "none");
     addStyleByQuery(".global-nav__a11y-menu", "display", "flex");
     addStyleByQuery(".global-nav", "display", "block");
+    addStyleByQuery(".__ML-nav", "display", "none");
   } else {
+    addSimpleNavbar();
     removeStyleByQuery(".global-nav__a11y-menu", "display");
     removeStyleByQuery(".global-nav", "display");
-
-    fetch(chrome.runtime.getURL("src/pages/nav.html"))
-      .then((response) => response.text())
-      .then((html) => {
-        const preparedNav = prepareNavbar(html);
-        let nav = document.getElementById("global-nav");
-        //   nav.parentNode.replaceChild(preparedNav, nav);
-        nav.parentNode.insertBefore(preparedNav, nav);
-      });
   }
+};
+
+const hideNavLabels = (toApply = true) => {
+  if (!toApply) {
+    addStyleByQuery("span.__ML-nav-label", "display", "block");
+  } else {
+    removeStyleByQuery("span.__ML-nav-label", "display");
+  }
+};
+
+const hideNavLink = (link, toApply = true) => {
+  const query = `li.__ML-nav-${link}`;
+  return (toApply) => {
+    if (!toApply) {
+      removeStyleByQuery(query, "display");
+    } else {
+      addStyleByQuery(query, "display", "none");
+    }
+  };
 };
 // END NAVIGATION
 
@@ -198,6 +227,13 @@ const hideFloatingMessaging = (toApply = true) => {
 
 window.handlers = {
   "nav:simplify": simplifyNavbar,
+  "nav:labels:hide": hideNavLabels,
+  "nav:home:hide": hideNavLink("home"),
+  "nav:my_network:hide": hideNavLink("network"),
+  "nav:jobs:hide": hideNavLink("jobs"),
+  "nav:messaging:hide": hideNavLink("messages"),
+  "nav:notifications:hide": hideNavLink("notifications"),
+
   "floating_messaging:hide": hideFloatingMessaging,
   "floating_messaging:hide": hideFloatingMessaging,
 
