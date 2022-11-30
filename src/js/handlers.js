@@ -106,7 +106,7 @@ const addSimpleNavbar = () => {
   //   already exists
   if (document.querySelectorAll("header:has(> .__ML-nav)").length > 0) return;
 
-  fetch(chrome.runtime.getURL("src/partials/nav.html"))
+  fetch(chrome.runtime.getURL("partials/nav.html"))
     .then((response) => response.text())
     .then((html) => {
       const preparedNav = prepareNavbar(html);

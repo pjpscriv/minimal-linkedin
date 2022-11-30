@@ -17,7 +17,6 @@ const loadSettings = (callback) => {
 window.addEventListener(
   "message",
   (event) => {
-    console.log(event);
     const payload = JSON.parse(event.data);
     if (!payload) return;
 

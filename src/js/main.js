@@ -20,8 +20,34 @@ const addStyleSheets = () => {
   const mainStylesheet = document.createElement("link");
   mainStylesheet.rel = "stylesheet";
   mainStylesheet.type = "text/css";
-  mainStylesheet.href = chrome.runtime.getURL("src/css/minimal.css");
+  mainStylesheet.href = chrome.runtime.getURL("css/minimal.css");
   head.appendChild(mainStylesheet);
+};
+
+const setDefaultSettings = () => {
+  const defaults = {
+    "nav:simplify": true,
+    "left_pane:hide": true,
+    "right_pane:hide": true,
+    "feed:simplify": true,
+    "floating_messaging:hide": true,
+    "nav:labels:hide": false,
+    "nav:home:hide": false,
+    "nav:my_network:hide": false,
+    "nav:jobs:hide": false,
+    "nav:messaging:hide": false,
+    "nav:notifications:hide": false,
+    "left_pane:profile:hide": true,
+    "left_pane:pages:hide": true,
+    "left_pane:extras:hide": true,
+    "right_pane:news:hide": true,
+    "right_pane:ads:hide": true,
+    "footer:hide": true,
+    "feed:ads:hide": true,
+    "feed:post_context:hide": true,
+    "feed:post_author:simplify": true,
+  };
+  return chrome.storage.sync.set({ [PERSISTED_KEY_SETTINGS]: defaults });
 };
 
 const applySettings = (settings, group) => {
@@ -45,6 +71,8 @@ const loadAndApplySettings = (group = "") => {
   chrome.storage.sync.get([PERSISTED_KEY_SETTINGS], (value) => {
     if (value[PERSISTED_KEY_SETTINGS]) {
       applySettings(value[PERSISTED_KEY_SETTINGS], group);
+    } else {
+      setDefaultSettings().then(() => loadAndApplySettings(group));
     }
   });
 };
@@ -63,7 +91,7 @@ const watchScroll = () => {
 };
 
 // const addConfigShortcut = () => {
-//   fetch(chrome.runtime.getURL("src/partials/config-shortcut.html"))
+//   fetch(chrome.runtime.getURL("partials/config-shortcut.html"))
 //     .then((response) => response.text())
 //     .then((html) => {
 //       const shortcut = document.createElement("a");
