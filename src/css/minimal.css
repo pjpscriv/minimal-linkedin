@@ -159,3 +159,17 @@ aside.scaffold-layout__aside {
 .update-components-actor__description, .update-components-actor__sub-description {
     display: none !important;
 }
+
+/* Config Shortcut */
+#__ML-config-shortcut {
+    position: fixed;
+    z-index: 10000;
+    bottom: 1rem;
+    left: 1rem;
+    width: 3rem;
+    height: 3rem;
+    opacity: 0.5;
+}
+#__ML-config-shortcut:hover {
+    opacity: 1;
+}

@@ -24,19 +24,6 @@ const addStyleSheets = () => {
   head.appendChild(mainStylesheet);
 };
 
-const changeBranding = () => {
-  const brandingContainer = document.getElementsByClassName(
-    "global-nav__branding-logo"
-  )[0];
-  const brandingIcon = brandingContainer.getElementsByTagName("li-icon")[0];
-
-  fetch(chrome.runtime.getURL("images/icon.svg"))
-    .then((response) => response.text())
-    .then((svg) => {
-      brandingIcon.innerHTML = svg;
-    });
-};
-
 const applySettings = (settings, group) => {
   const keys = Object.keys(settings);
   keys.forEach((key) => {
@@ -46,6 +33,11 @@ const applySettings = (settings, group) => {
 
     const handler = handlers[key];
     handler(settings[key]);
+
+    // apply all nav-based configs
+    if (key === "nav:simplify") {
+      loadAndApplySettings("nav");
+    }
   });
 };
 
@@ -70,12 +62,36 @@ const watchScroll = () => {
   );
 };
 
+// const addConfigShortcut = () => {
+//   fetch(chrome.runtime.getURL("src/partials/config-shortcut.html"))
+//     .then((response) => response.text())
+//     .then((html) => {
+//       const shortcut = document.createElement("a");
+
+//       shortcut.setAttribute("id", "__ML-config-shortcut");
+//       shortcut.setAttribute("href", "#");
+//       shortcut.innerHTML = html;
+//       shortcut.getElementsByTagName("img")[0].src = chrome.runtime.getURL(
+//         "images/icon-settings.svg"
+//       );
+
+//       shortcut.onclick = (e) => {
+//         e.preventDefault();
+//         chrome.action.openPopup();
+//       };
+
+//       document.body.insertBefore(shortcut, null);
+//     });
+// };
+
 const init = () => {
   watchSettings();
 
   watchScroll();
 
   addStyleSheets();
+
+  // addConfigShortcut();
 
   const booted = setInterval(() => {
     // this class gets applied to body when the boot is completed

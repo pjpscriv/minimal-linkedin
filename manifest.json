@@ -6,9 +6,6 @@
   "icons": {
     "128": "images/icon.png"
   },
-  "background": {
-    "service_worker": "src/js/background.js"
-  },
   "sandbox": {
     "pages": ["src/pages/config.html"]
   },
@@ -23,14 +20,20 @@
     {
       "resources": [
         "src/css/minimal.css",
-        "src/pages/nav.html",
+
+        "src/pages/config.html",
+
+        "src/partials/nav.html",
+        "src/partials/config-shortcut.html",
+
         "images/icon.svg",
+        "images/icon-settings.svg",
+
         "images/nav-home.svg",
         "images/nav-network.svg",
         "images/nav-jobs.svg",
         "images/nav-messages.svg",
-        "images/nav-notifications.svg",
-        "src/pages/config.html"
+        "images/nav-notifications.svg"
       ],
       "matches": ["https://*.linkedin.com/*"]
     }

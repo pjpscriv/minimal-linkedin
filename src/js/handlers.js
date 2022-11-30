@@ -106,7 +106,7 @@ const addSimpleNavbar = () => {
   //   already exists
   if (document.querySelectorAll("header:has(> .__ML-nav)").length > 0) return;
 
-  fetch(chrome.runtime.getURL("src/pages/nav.html"))
+  fetch(chrome.runtime.getURL("src/partials/nav.html"))
     .then((response) => response.text())
     .then((html) => {
       const preparedNav = prepareNavbar(html);
@@ -136,9 +136,9 @@ const hideNavLabels = (toApply = true) => {
   }
 };
 
-const hideNavLink = (link, toApply = true) => {
+const hideNavLink = (link) => {
   const query = `li.__ML-nav-${link}`;
-  return (toApply) => {
+  return (toApply = true) => {
     if (!toApply) {
       removeStyleByQuery(query, "display");
     } else {
