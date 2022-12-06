@@ -50,13 +50,21 @@ const setDefaultSettings = () => {
   return chrome.storage.sync.set({ [PERSISTED_KEY_SETTINGS]: defaults });
 };
 
-const applySettings = (settings, group) => {
+const keysOfToBeAppliedSettings = (settings, group) => {
   const keys = Object.keys(settings);
+
+  if (typeof group === "string") {
+    return keys.filter((key) => {
+      return key.startsWith(group);
+    });
+  } else if (Array.isArray(group)) {
+    return group;
+  }
+};
+
+const applySettings = (settings, group) => {
+  const keys = keysOfToBeAppliedSettings(settings, group);
   keys.forEach((key) => {
-    if (typeof group === "string" && !key.startsWith(group)) return;
-
-    if (typeof group === "array" && group.indexOf(key) === -1) return;
-
     if (!handlers[key]) return;
 
     const handler = handlers[key];
@@ -138,7 +146,7 @@ const init = () => {
     loadAndApplySettings();
 
     clearInterval(booted);
-  }, 100);
+  }, 200);
 };
 
 init();

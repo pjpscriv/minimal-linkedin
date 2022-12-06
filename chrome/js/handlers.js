@@ -109,8 +109,9 @@ var prepareNavbar = function prepareNavbar(html) {
   addIconsToNavMenu(nav);
   setActiveNavItem(nav);
   setPendingDotToNavItems(nav);
-  addSearchbarToNav(nav);
-  addUserMenutoNavbar(nav);
+  // addSearchbarToNav(nav);
+  // addUserMenutoNavbar(nav);
+
   return nav;
 };
 var addSimpleNavbar = function addSimpleNavbar() {
@@ -131,11 +132,17 @@ var simplifyNavbar = function simplifyNavbar() {
     addStyleByQuery(".global-nav__a11y-menu", "display", "flex");
     addStyleByQuery(".global-nav", "display", "block");
     addStyleByQuery(".__ML-nav", "display", "none");
+    addStyleByQuery(".search-global-typeahead", "max-width", "280px");
+    removeStyleByQuery(".search-global-typeahead", "margin");
+    addStyleByQuery(".global-nav nav li", "display", "block");
   } else {
     addSimpleNavbar();
     removeStyleByQuery(".__ML-nav", "display");
     removeStyleByQuery(".global-nav__a11y-menu", "display");
     removeStyleByQuery(".global-nav", "display");
+    addStyleByQuery(".search-global-typeahead", "margin", "0 3rem");
+    addStyleByQuery(".search-global-typeahead", "max-width", "100%");
+    removeStyleByQuery(".global-nav nav li", "display");
   }
 };
 var hideNavLabels = function hideNavLabels() {

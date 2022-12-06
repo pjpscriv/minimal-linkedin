@@ -1,30 +1,55 @@
 /* Nav */
 .global-nav__a11y-menu {
-    display: none !important;
+    /* display: none !important; */
 }
 
 .global-nav {
+    /* display: none !important; */
+}
+
+.search-global-typeahead {
+    max-width: 100% !important;
+    margin: 0 3rem !important;
+}
+
+.global-nav nav li:has(span.global-nav__primary-link-text[title="Home"]),
+.global-nav nav li:has(span.global-nav__primary-link-text[title="My Network"]),
+.global-nav nav li:has(span.global-nav__primary-link-text[title="Jobs"]),
+.global-nav nav li:has(span.global-nav__primary-link-text[title="Messaging"]),
+.global-nav nav li:has(span.global-nav__primary-link-text[title="Notifications"]),
+.global-nav nav li:has(span.global-nav__primary-link-text[title="Work"]),
+.global-nav nav li:has(span.global-nav__primary-link-text[title="Advertise"])
+{
     display: none !important;
 }
 
 .__ML-nav {
-    background-color: #ffffff;
+    /* background-color: #ffffff; */
     left: 0;
-    padding: 0 2.4rem;
+    /* padding: 0 2.4rem; */
     position: fixed;
-    top: 0;
-    width: 100vw;
+    /* top: 0; */
+    width: 200px;
     z-index: 100;
-    border-bottom: 1px solid #00000014;
+    /* border-bottom: 1px solid #00000014; */
+    top: -52px;
 }
 
 .__ML-nav-content {
+    /* align-items: center; */
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin: 0 auto;
-    min-height: 100%;
-    width: 1128px;
+    /* min-height: 100%; */
+    /* width: 1128px; */
+
+    align-items: flex-start;
+    width: 200px;
+    min-height: 100vh;
+    flex-direction: column;
+    padding: 3rem 0;
+
 }
 
 a:has(.__ML-logo) {
@@ -34,13 +59,18 @@ a:has(.__ML-logo) {
 .__ML-logo {
     width: 3.5rem;
     height: 3.5rem;
+
+    display: none;
 }
 
 .__ML-nav-links ul {
     display: flex;
-    align-items: center;
+    /* align-items: center; */
     justify-content: space-between;
-    gap: 3rem;
+    /* gap: 3rem; */
+    gap: 1rem;
+    align-items: flex-start;
+    flex-direction: column;
 }
 
 .__ML-nav-label {
@@ -50,9 +80,12 @@ a:has(.__ML-logo) {
 .__ML-nav-links ul li {
     list-style: none;
     position: relative;
+
+    padding-left: 1rem;
 }
 .__ML-nav-links ul li.__ML-nav-active {
-    border-bottom: 2px solid #000;
+    /* border-bottom: 2px solid #000; */
+    border-left: 2px solid #000;
 }
 .__ML-nav-links ul li a, .__ML-nav-links ul li a:visited {
     display: flex;

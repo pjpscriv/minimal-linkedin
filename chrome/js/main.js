@@ -55,11 +55,19 @@ var setDefaultSettings = function setDefaultSettings() {
   };
   return chrome.storage.sync.set(_defineProperty({}, PERSISTED_KEY_SETTINGS, defaults));
 };
-var applySettings = function applySettings(settings, group) {
+var keysOfToBeAppliedSettings = function keysOfToBeAppliedSettings(settings, group) {
   var keys = Object.keys(settings);
+  if (typeof group === "string") {
+    return keys.filter(function (key) {
+      return key.startsWith(group);
+    });
+  } else if (Array.isArray(group)) {
+    return group;
+  }
+};
+var applySettings = function applySettings(settings, group) {
+  var keys = keysOfToBeAppliedSettings(settings, group);
   keys.forEach(function (key) {
-    if (typeof group === "string" && !key.startsWith(group)) return;
-    if (typeof group === "array" && group.indexOf(key) === -1) return;
     if (!handlers[key]) return;
     var handler = handlers[key];
     handler(settings[key]);
@@ -129,7 +137,7 @@ var init = function init() {
     // Load and Apply Settings
     loadAndApplySettings();
     clearInterval(booted);
-  }, 100);
+  }, 200);
 };
 init();
 /******/ })()
