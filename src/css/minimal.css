@@ -1,8 +1,3 @@
-/* Helper */
-.__ML-unhidden {
-    display: initial !important;
-}
-
 /* Nav */
 .global-nav__a11y-menu {
     display: none !important;
@@ -55,6 +50,7 @@ a:has(.__ML-logo) {
 
 .__ML-nav-links ul li {
     list-style: none;
+    position: relative;
 }
 .__ML-nav-links ul li.__ML-nav-active {
     border-bottom: 2px solid #000;
@@ -70,11 +66,25 @@ a:has(.__ML-logo) {
     min-height: 52px;
 }
 
-
 .__ML-nav-links ul li img {
     width: 1.8rem;
     height: 1.8rem;
 }
+
+.__ML-nav-links ul li .__ML-nav-pendingdot {
+    background-color: #cc1016;
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    top: 10px;
+    right: -10px;
+    border-radius: 100%;
+    display: none;
+}
+.__ML-nav-links ul li.__ML-nav-haspending .__ML-nav-pendingdot {
+    display: block;
+}
+
 
 .__ML-nav-user .global-nav__primary-link {
     flex-direction: row;

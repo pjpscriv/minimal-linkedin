@@ -53,7 +53,9 @@ const setDefaultSettings = () => {
 const applySettings = (settings, group) => {
   const keys = Object.keys(settings);
   keys.forEach((key) => {
-    if (!key.startsWith(group)) return;
+    if (typeof group === "string" && !key.startsWith(group)) return;
+
+    if (typeof group === "array" && group.indexOf(key) === -1) return;
 
     if (!handlers[key]) return;
 
@@ -62,7 +64,14 @@ const applySettings = (settings, group) => {
 
     // apply all nav-based configs
     if (key === "nav:simplify") {
-      loadAndApplySettings("nav");
+      loadAndApplySettings([
+        "nav:labels:hide",
+        "nav:home:hide",
+        "nav:my_network:hide",
+        "nav:jobs:hide",
+        "nav:messaging:hide",
+        "nav:notifications:hide",
+      ]);
     }
   });
 };

@@ -58,14 +58,15 @@ var setDefaultSettings = function setDefaultSettings() {
 var applySettings = function applySettings(settings, group) {
   var keys = Object.keys(settings);
   keys.forEach(function (key) {
-    if (!key.startsWith(group)) return;
+    if (typeof group === "string" && !key.startsWith(group)) return;
+    if (typeof group === "array" && group.indexOf(key) === -1) return;
     if (!handlers[key]) return;
     var handler = handlers[key];
     handler(settings[key]);
 
     // apply all nav-based configs
     if (key === "nav:simplify") {
-      loadAndApplySettings("nav");
+      loadAndApplySettings(["nav:labels:hide", "nav:home:hide", "nav:my_network:hide", "nav:jobs:hide", "nav:messaging:hide", "nav:notifications:hide"]);
     }
   });
 };

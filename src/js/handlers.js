@@ -61,6 +61,41 @@ const setActiveNavItem = (nav) => {
   });
 };
 
+const setPendingDotToNavItems = (nav) => {
+  const labelToNav = [
+    ["Home", "home"],
+    ["My Network", "network"],
+    ["Jobs", "jobs"],
+    ["Messaging", "messages"],
+    ["Notifications", "notifications"],
+  ];
+
+  labelToNav.forEach((label) => {
+    const original = document.querySelector(
+      `span.global-nav__primary-link-text[title="${label[0]}"]`
+    );
+
+    if (
+      original.previousElementSibling.getElementsByClassName(
+        "notification-badge--show"
+      ).length > 0
+    ) {
+      const link = nav.getElementsByClassName(`__ML-nav-${label[1]}`)[0];
+      link.classList.add("__ML-nav-haspending");
+    }
+  });
+};
+
+const addSearchbarToNav = (nav) => {
+  const theirs = document.getElementById("global-nav-search");
+  if (!theirs) {
+    return;
+  }
+
+  const ours = nav.getElementsByClassName("__ML-nav-search")[0];
+  ours.insertBefore(theirs, null);
+};
+
 const addUserMenutoNavbar = (nav) => {
   const originalUserMenu = document.getElementsByClassName("global-nav__me")[0];
   if (!originalUserMenu) {
@@ -97,6 +132,8 @@ const prepareNavbar = (html) => {
   addLogoToNavbar(nav);
   addIconsToNavMenu(nav);
   setActiveNavItem(nav);
+  setPendingDotToNavItems(nav);
+  addSearchbarToNav(nav);
   addUserMenutoNavbar(nav);
 
   return nav;
@@ -111,7 +148,7 @@ const addSimpleNavbar = () => {
     .then((html) => {
       const preparedNav = prepareNavbar(html);
       let nav = document.getElementById("global-nav");
-      //   nav.parentNode.replaceChild(preparedNav, nav);
+      // nav.parentNode.replaceChild(preparedNav, nav);
       nav.parentNode.insertBefore(preparedNav, nav);
     });
 };
@@ -123,6 +160,7 @@ const simplifyNavbar = (toApply = true) => {
     addStyleByQuery(".__ML-nav", "display", "none");
   } else {
     addSimpleNavbar();
+    removeStyleByQuery(".__ML-nav", "display");
     removeStyleByQuery(".global-nav__a11y-menu", "display");
     removeStyleByQuery(".global-nav", "display");
   }
