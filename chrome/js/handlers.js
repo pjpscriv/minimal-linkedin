@@ -140,8 +140,8 @@ var simplifyNavbar = function simplifyNavbar() {
     removeStyleByQuery(".__ML-nav", "display");
     removeStyleByQuery(".global-nav__a11y-menu", "display");
     removeStyleByQuery(".global-nav", "display");
-    addStyleByQuery(".search-global-typeahead", "margin", "0 3rem");
-    addStyleByQuery(".search-global-typeahead", "max-width", "100%");
+    addStyleByQuery(".search-global-typeahead", "margin", "0 auto");
+    addStyleByQuery(".search-global-typeahead", "max-width", "640px");
     removeStyleByQuery(".global-nav nav li", "display");
   }
 };

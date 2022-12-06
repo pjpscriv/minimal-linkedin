@@ -85,7 +85,7 @@ a:has(.__ML-logo) {
 }
 .__ML-nav-links ul li.__ML-nav-active {
     /* border-bottom: 2px solid #000; */
-    border-left: 2px solid #000;
+    border-left: 5px solid var(--color-brand-active);
 }
 .__ML-nav-links ul li a, .__ML-nav-links ul li a:visited {
     display: flex;
