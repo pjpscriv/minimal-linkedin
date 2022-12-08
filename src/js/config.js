@@ -83,6 +83,24 @@ var init = function () {
                 name: `Hide "Notifications"`,
                 default: false,
               },
+              {
+                key: "nav:work:hide",
+                icon: "config/work.svg",
+                name: `Hide "Work"`,
+                default: true,
+              },
+              {
+                key: "nav:recruiter:hide",
+                icon: "config/jobs.svg",
+                name: `Hide "Recruiter"`,
+                default: true,
+              },
+              {
+                key: "nav:advertise:hide",
+                icon: "config/ads.svg",
+                name: `Hide "Advertise"`,
+                default: true,
+              },
             ],
           },
           {

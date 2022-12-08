@@ -1,4 +1,11 @@
 // HELPERS
+function htmlToElement(html) {
+  var template = document.createElement("template");
+  html = html.trim(); // Never return a text node of whitespace as the result
+  template.innerHTML = html;
+  return template.content.firstElementChild;
+}
+
 const addStyle = (node, property, value) => {
   node.style.setProperty(property, value, "important");
 };
@@ -153,39 +160,72 @@ const addSimpleNavbar = () => {
     });
 };
 
+const replaceNavbarLogoToNew = () => {
+  // if already exists
+  if (document.getElementsByClassName("__ML-logo-new").length > 0) return;
+
+  fetch(chrome.runtime.getURL("images/icon.svg"))
+    .then((response) => response.text())
+    .then((svg) => {
+      let logoContainer = document.querySelector(
+        ".global-nav__branding-logo li-icon[type=app-linkedin-bug-color-icon]"
+      );
+      let original = logoContainer.querySelector("svg");
+      original.classList.add("__ML-logo-original");
+      addStyle(original, "display", "none");
+
+      let newLogo = htmlToElement(svg);
+      newLogo.classList.add("__ML-logo-new");
+      logoContainer.append(newLogo);
+    });
+};
+
+const replaceNavbarLogoToOld = () => {
+  let logoContainer = document.querySelector(
+    ".global-nav__branding-logo li-icon[type=app-linkedin-bug-color-icon]"
+  );
+  let logos = logoContainer.querySelectorAll("svg");
+
+  logos.forEach((logo) => {
+    if (!logo.classList.contains("__ML-logo-original")) {
+      logo.remove();
+    } else {
+      removeStyle(logo, "display");
+    }
+  });
+};
+
 const simplifyNavbar = (toApply = true) => {
   if (!toApply) {
+    replaceNavbarLogoToOld();
     addStyleByQuery(".global-nav__a11y-menu", "display", "flex");
     addStyleByQuery(".global-nav", "display", "block");
-    addStyleByQuery(".__ML-nav", "display", "none");
-
-    addStyleByQuery(".search-global-typeahead", "max-width", "280px");
-    removeStyleByQuery(".search-global-typeahead", "margin");
+    // addStyleByQuery(".__ML-nav", "display", "none");
 
     addStyleByQuery(".global-nav nav li", "display", "block");
+    addStyleByQuery("span.global-nav__primary-link-text", "display", "flex");
   } else {
-    addSimpleNavbar();
-    removeStyleByQuery(".__ML-nav", "display");
+    // addSimpleNavbar();
+    // removeStyleByQuery(".__ML-nav", "display");
+    replaceNavbarLogoToNew();
     removeStyleByQuery(".global-nav__a11y-menu", "display");
     removeStyleByQuery(".global-nav", "display");
 
-    addStyleByQuery(".search-global-typeahead", "margin", "0 auto");
-    addStyleByQuery(".search-global-typeahead", "max-width", "640px");
-
     removeStyleByQuery(".global-nav nav li", "display");
+    removeStyleByQuery("span.global-nav__primary-link-text", "display");
   }
 };
 
 const hideNavLabels = (toApply = true) => {
   if (!toApply) {
-    addStyleByQuery("span.__ML-nav-label", "display", "block");
+    addStyleByQuery("span.global-nav__primary-link-text", "display", "block");
   } else {
-    removeStyleByQuery("span.__ML-nav-label", "display");
+    removeStyleByQuery("span.global-nav__primary-link-text", "display");
   }
 };
 
-const hideNavLink = (link) => {
-  const query = `li.__ML-nav-${link}`;
+const hideNavLink = (label) => {
+  const query = `.global-nav nav li:has(span.global-nav__primary-link-text[title="${label}"])`;
   return (toApply = true) => {
     if (!toApply) {
       removeStyleByQuery(query, "display");
@@ -331,11 +371,14 @@ const simplifyFeedPostAuthor = (toApply) => {
 window.handlers = {
   "nav:simplify": simplifyNavbar,
   "nav:labels:hide": hideNavLabels,
-  "nav:home:hide": hideNavLink("home"),
-  "nav:my_network:hide": hideNavLink("network"),
-  "nav:jobs:hide": hideNavLink("jobs"),
-  "nav:messaging:hide": hideNavLink("messages"),
-  "nav:notifications:hide": hideNavLink("notifications"),
+  "nav:home:hide": hideNavLink("Home"),
+  "nav:my_network:hide": hideNavLink("My Network"),
+  "nav:jobs:hide": hideNavLink("Jobs"),
+  "nav:messaging:hide": hideNavLink("Messaging"),
+  "nav:notifications:hide": hideNavLink("Notifications"),
+  "nav:work:hide": hideNavLink("Work"),
+  "nav:recruiter:hide": hideNavLink("Recruiter"),
+  "nav:advertise:hide": hideNavLink("Advertise"),
 
   "floating_messaging:hide": hideFloatingMessaging,
   "floating_messaging:hide": hideFloatingMessaging,

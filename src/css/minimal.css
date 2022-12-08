@@ -8,24 +8,35 @@
 }
 
 .search-global-typeahead {
-    max-width: 100% !important;
-    margin: 0 3rem !important;
+    /* max-width: 100% !important; */
+    /* margin: 0 3rem !important; */
 }
 
-.global-nav nav li:has(span.global-nav__primary-link-text[title="Home"]),
+span.global-nav__primary-link-text {
+    display: none !important;
+}
+
+/* .global-nav nav li:has(span.global-nav__primary-link-text[title="Home"]),
 .global-nav nav li:has(span.global-nav__primary-link-text[title="My Network"]),
 .global-nav nav li:has(span.global-nav__primary-link-text[title="Jobs"]),
 .global-nav nav li:has(span.global-nav__primary-link-text[title="Messaging"]),
-.global-nav nav li:has(span.global-nav__primary-link-text[title="Notifications"]),
-.global-nav nav li:has(span.global-nav__primary-link-text[title="Work"]),
+.global-nav nav li:has(span.global-nav__primary-link-text[title="Notifications"]), */
+/* .global-nav nav li:has(span.global-nav__primary-link-text[title="Work"]),
+.global-nav nav li:has(span.global-nav__primary-link-text[title="Recruiter"]),
 .global-nav nav li:has(span.global-nav__primary-link-text[title="Advertise"])
 {
     display: none !important;
+} */
+
+svg.__ML-logo-new {
+    width: 3.5rem !important;
+    height: 3.5rem !important;
 }
 
 .__ML-nav {
     /* background-color: #ffffff; */
     left: 0;
+    display: none;
     /* padding: 0 2.4rem; */
     position: fixed;
     /* top: 0; */
