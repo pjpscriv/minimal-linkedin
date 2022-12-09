@@ -48,6 +48,12 @@ var init = function () {
             is_collapsed: true,
             options: [
               {
+                key: "nav:brand:replace",
+                icon: "config/minimal-logo.svg",
+                name: "Use Minimal LinkedIn Logo",
+                default: true,
+              },
+              {
                 key: "nav:labels:hide",
                 icon: "config/label.svg",
                 name: "Hide Labels",
@@ -82,6 +88,24 @@ var init = function () {
                 icon: "nav-notifications.svg",
                 name: `Hide "Notifications"`,
                 default: false,
+              },
+              {
+                key: "nav:work:hide",
+                icon: "config/work.svg",
+                name: `Hide "Work"`,
+                default: true,
+              },
+              {
+                key: "nav:recruiter:hide",
+                icon: "config/jobs.svg",
+                name: `Hide "Recruiter"`,
+                default: true,
+              },
+              {
+                key: "nav:advertise:hide",
+                icon: "config/ads.svg",
+                name: `Hide "Advertise"`,
+                default: true,
               },
             ],
           },
@@ -142,9 +166,21 @@ var init = function () {
             is_collapsed: true,
             options: [
               {
+                key: "feed:sorter:hide",
+                icon: "config/sort.svg",
+                name: "Hide Feed Sorter",
+                default: true,
+              },
+              {
                 key: "feed:ads:hide",
                 icon: "config/ads.svg",
                 name: "Hide Promoted Posts",
+                default: true,
+              },
+              {
+                key: "feed:jobs:hide",
+                icon: "config/work.svg",
+                name: "Hide Jobs Carousel",
                 default: true,
               },
               {
@@ -155,10 +191,21 @@ var init = function () {
                 default: true,
               },
               {
-                key: "feed:post_author:simplify",
+                key: "feed:post_author_bio:hide",
                 icon: "config/person.svg",
-                name: "Simplify Post's Author",
-                description: "Hides the author's bio and post's timestamp.",
+                name: "Hide Post Author's Bio",
+                default: true,
+              },
+              {
+                key: "feed:post_time:hide",
+                icon: "config/time.svg",
+                name: "Hide Post's Timestamp",
+                default: false,
+              },
+              {
+                key: "feed:follow:hide",
+                icon: "config/follow.svg",
+                name: "Hide +Follow Button",
                 default: true,
               },
             ],
@@ -201,6 +248,13 @@ var init = function () {
 
       adjustDependableSettings: function (key) {
         const dependencies = {
+          "nav:simplify": [
+            "nav:brand:replace",
+            "nav:labels:hide",
+            "nav:work:hide",
+            "nav:recruiter:hide",
+            "nav:advertise:hide",
+          ],
           "left_pane:hide": [
             "left_pane:profile:hide",
             "left_pane:pages:hide",

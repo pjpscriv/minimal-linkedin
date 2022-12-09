@@ -1,125 +1,11 @@
 /* Nav */
-.global-nav__a11y-menu {
-    /* display: none !important; */
-}
-
-.global-nav {
-    /* display: none !important; */
-}
-
-.search-global-typeahead {
-    max-width: 100% !important;
-    margin: 0 3rem !important;
-}
-
-.global-nav nav li:has(span.global-nav__primary-link-text[title="Home"]),
-.global-nav nav li:has(span.global-nav__primary-link-text[title="My Network"]),
-.global-nav nav li:has(span.global-nav__primary-link-text[title="Jobs"]),
-.global-nav nav li:has(span.global-nav__primary-link-text[title="Messaging"]),
-.global-nav nav li:has(span.global-nav__primary-link-text[title="Notifications"]),
-.global-nav nav li:has(span.global-nav__primary-link-text[title="Work"]),
-.global-nav nav li:has(span.global-nav__primary-link-text[title="Advertise"])
-{
+span.global-nav__primary-link-text {
     display: none !important;
 }
 
-.__ML-nav {
-    /* background-color: #ffffff; */
-    left: 0;
-    /* padding: 0 2.4rem; */
-    position: fixed;
-    /* top: 0; */
-    width: 200px;
-    z-index: 100;
-    /* border-bottom: 1px solid #00000014; */
-    top: -52px;
-}
-
-.__ML-nav-content {
-    /* align-items: center; */
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 0 auto;
-    /* min-height: 100%; */
-    /* width: 1128px; */
-
-    align-items: flex-start;
-    width: 200px;
-    min-height: 100vh;
-    flex-direction: column;
-    padding: 3rem 0;
-
-}
-
-a:has(.__ML-logo) {
-    display: flex;
-}
-
-.__ML-logo {
-    width: 3.5rem;
-    height: 3.5rem;
-
-    display: none;
-}
-
-.__ML-nav-links ul {
-    display: flex;
-    /* align-items: center; */
-    justify-content: space-between;
-    /* gap: 3rem; */
-    gap: 1rem;
-    align-items: flex-start;
-    flex-direction: column;
-}
-
-.__ML-nav-label {
-    display: none;
-}
-
-.__ML-nav-links ul li {
-    list-style: none;
-    position: relative;
-
-    padding-left: 1rem;
-}
-.__ML-nav-links ul li.__ML-nav-active {
-    /* border-bottom: 2px solid #000; */
-    border-left: 5px solid var(--color-brand-active);
-}
-.__ML-nav-links ul li a, .__ML-nav-links ul li a:visited {
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-    font-size: 1.5rem;
-    font-weight: normal;
-    text-decoration: none;
-    color: #000;
-    min-height: 52px;
-}
-
-.__ML-nav-links ul li img {
-    width: 1.8rem;
-    height: 1.8rem;
-}
-
-.__ML-nav-links ul li .__ML-nav-pendingdot {
-    background-color: #cc1016;
-    width: 10px;
-    height: 10px;
-    position: absolute;
-    top: 10px;
-    right: -10px;
-    border-radius: 100%;
-    display: none;
-}
-.__ML-nav-links ul li.__ML-nav-haspending .__ML-nav-pendingdot {
-    display: block;
-}
-
-
-.__ML-nav-user .global-nav__primary-link {
-    flex-direction: row;
+svg.__ML-logo-new {
+    width: 34px !important;
+    height: 34px !important;
 }
 
 /* ⬅️ Left Pane */
@@ -195,23 +81,25 @@ aside.scaffold-layout__aside {
 /* Simplify Author Details */
 .update-components-actor__meta {
     display: flex !important;
-    align-items: center !important;
+    flex-direction: column;
+    justify-content: center;
 }
 
-.update-components-actor__description, .update-components-actor__sub-description {
+.update-components-actor__description {
     display: none !important;
 }
 
-/* Config Shortcut */
-#__ML-config-shortcut {
-    position: fixed;
-    z-index: 10000;
-    bottom: 1rem;
-    left: 1rem;
-    width: 3rem;
-    height: 3rem;
-    opacity: 0.5;
+/* Feed Sorter */
+div:has(> button > hr.feed-index-sort-border) {
+    display: none !important;
 }
-#__ML-config-shortcut:hover {
-    opacity: 1;
+
+/* Follow Button */
+.update-components-actor__follow-button {
+    display: none !important;
+}
+
+/* Jobs Carousel */
+div:has(> div[data-id] .update-components-carousel--jobs) {
+    display: none !important;
 }

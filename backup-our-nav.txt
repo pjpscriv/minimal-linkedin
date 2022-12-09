@@ -1,0 +1,99 @@
+.__ML-nav {
+    /* background-color: #ffffff; */
+    left: 0;
+    display: none;
+    /* padding: 0 2.4rem; */
+    position: fixed;
+    /* top: 0; */
+    width: 200px;
+    z-index: 100;
+    /* border-bottom: 1px solid #00000014; */
+    top: -52px;
+}
+
+.__ML-nav-content {
+    /* align-items: center; */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 auto;
+    /* min-height: 100%; */
+    /* width: 1128px; */
+
+    align-items: flex-start;
+    width: 200px;
+    min-height: 100vh;
+    flex-direction: column;
+    padding: 3rem 0;
+
+}
+
+a:has(.__ML-logo) {
+    display: flex;
+}
+
+.__ML-logo {
+    width: 3.5rem;
+    height: 3.5rem;
+
+    display: none;
+}
+
+.__ML-nav-links ul {
+    display: flex;
+    /* align-items: center; */
+    justify-content: space-between;
+    /* gap: 3rem; */
+    gap: 1rem;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.__ML-nav-label {
+    display: none;
+}
+
+.__ML-nav-links ul li {
+    list-style: none;
+    position: relative;
+
+    padding-left: 1rem;
+}
+.__ML-nav-links ul li.__ML-nav-active {
+    /* border-bottom: 2px solid #000; */
+    border-left: 5px solid var(--color-brand-active);
+}
+.__ML-nav-links ul li a, .__ML-nav-links ul li a:visited {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 1.5rem;
+    font-weight: normal;
+    text-decoration: none;
+    color: #000;
+    min-height: 52px;
+}
+
+.__ML-nav-links ul li img {
+    width: 1.8rem;
+    height: 1.8rem;
+}
+
+.__ML-nav-links ul li .__ML-nav-pendingdot {
+    background-color: #cc1016;
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    top: 10px;
+    right: -10px;
+    border-radius: 100%;
+    display: none;
+}
+.__ML-nav-links ul li.__ML-nav-haspending .__ML-nav-pendingdot {
+    display: block;
+}
+
+
+.__ML-nav-user .global-nav__primary-link {
+    flex-direction: row;
+}
