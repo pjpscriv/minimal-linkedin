@@ -14,9 +14,9 @@
     />
     <link rel="stylesheet" href="/css/app.css" />
   </head>
-  <body class="bg-[#f3f2ef] font-sans p-4">
+  <body class="bg-[#f3f2ef] font-sans">
     <main
-      class="w-[420px] min-h-screen mx-auto bg-white border border-gray-300 rounded"
+      class="w-full min-h-screen mx-auto bg-white border border-gray-300"
       x-data="minimalism"
     >
       <nav
@@ -75,7 +75,7 @@
               </div>
             </header>
             <ul
-              class="py-4 text-sm flex flex-col gap-4"
+              class="pb-4 text-sm flex flex-col gap-4"
               x-show="!group.is_collapsed"
               x-collapse.duration.200ms
             >

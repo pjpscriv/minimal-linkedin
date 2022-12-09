@@ -1,83 +1,11 @@
-/* Helper */
-.__ML-unhidden {
-    display: initial !important;
-}
-
 /* Nav */
-.global-nav__a11y-menu {
+span.global-nav__primary-link-text {
     display: none !important;
 }
 
-.global-nav {
-    display: none !important;
-}
-
-.__ML-nav {
-    background-color: #ffffff;
-    left: 0;
-    padding: 0 2.4rem;
-    position: fixed;
-    top: 0;
-    width: 100vw;
-    z-index: 100;
-    border-bottom: 1px solid #00000014;
-}
-
-.__ML-nav-content {
-    align-items: center;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 0 auto;
-    min-height: 100%;
-    width: 1128px;
-}
-
-a:has(.__ML-logo) {
-    display: flex;
-}
-
-.__ML-logo {
-    width: 3.5rem;
-    height: 3.5rem;
-}
-
-.__ML-nav-links ul {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 3rem;
-}
-
-.__ML-nav-label {
-    display: none;
-}
-
-.__ML-nav-links ul li {
-    list-style: none;
-}
-.__ML-nav-links ul li.__ML-nav-active {
-    border-bottom: 2px solid #000;
-}
-.__ML-nav-links ul li a, .__ML-nav-links ul li a:visited {
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-    font-size: 1.5rem;
-    font-weight: normal;
-    text-decoration: none;
-    color: #000;
-    min-height: 52px;
-}
-
-
-.__ML-nav-links ul li img {
-    width: 1.8rem;
-    height: 1.8rem;
-}
-
-.__ML-nav-user .global-nav__primary-link {
-    flex-direction: row;
+svg.__ML-logo-new {
+    width: 34px !important;
+    height: 34px !important;
 }
 
 /* ⬅️ Left Pane */
@@ -153,23 +81,25 @@ aside.scaffold-layout__aside {
 /* Simplify Author Details */
 .update-components-actor__meta {
     display: flex !important;
-    align-items: center !important;
+    flex-direction: column;
+    justify-content: center;
 }
 
-.update-components-actor__description, .update-components-actor__sub-description {
+.update-components-actor__description {
     display: none !important;
 }
 
-/* Config Shortcut */
-#__ML-config-shortcut {
-    position: fixed;
-    z-index: 10000;
-    bottom: 1rem;
-    left: 1rem;
-    width: 3rem;
-    height: 3rem;
-    opacity: 0.5;
+/* Feed Sorter */
+div:has(> button > hr.feed-index-sort-border) {
+    display: none !important;
 }
-#__ML-config-shortcut:hover {
-    opacity: 1;
+
+/* Follow Button */
+.update-components-actor__follow-button {
+    display: none !important;
+}
+
+/* Jobs Carousel */
+div:has(> div[data-id] .update-components-carousel--jobs) {
+    display: none !important;
 }

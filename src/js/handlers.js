@@ -1,4 +1,11 @@
 // HELPERS
+function htmlToElement(html) {
+  var template = document.createElement("template");
+  html = html.trim(); // Never return a text node of whitespace as the result
+  template.innerHTML = html;
+  return template.content.firstElementChild;
+}
+
 const addStyle = (node, property, value) => {
   node.style.setProperty(property, value, "important");
 };
@@ -28,116 +35,63 @@ const removeStyleByQuery = (query, property) => {
 // END HELPERS
 
 // NAVIGATION
-const addLogoToNavbar = (nav) => {
-  const logo = nav.getElementsByClassName("__ML-logo")[0];
-  logo.src = chrome.runtime.getURL("images/icon.svg");
-};
+const replaceNavbarLogoToNew = () => {
+  // if already exists
+  if (document.getElementsByClassName("__ML-logo-new").length > 0) return;
 
-const addIconsToNavMenu = (nav) => {
-  const items = ["home", "network", "jobs", "messages", "notifications"];
-  items.forEach((item) => {
-    const link = nav.getElementsByClassName(`__ML-nav-${item}`)[0];
-    const icon = link.getElementsByTagName("img")[0];
-    icon.src = chrome.runtime.getURL(`images/nav-${item}.svg`);
-  });
-};
-
-const setActiveNavItem = (nav) => {
-  const pathname = window.location.pathname;
-
-  const pathToNav = [
-    ["/feed/", "home"],
-    ["/mynetwork/", "network"],
-    ["/jobs/", "jobs"],
-    ["/messaging/", "messages"],
-    ["/notifications/", "notifications"],
-  ];
-
-  pathToNav.forEach((path) => {
-    if (!pathname.startsWith(path[0])) return;
-
-    const link = nav.getElementsByClassName(`__ML-nav-${path[1]}`)[0];
-    link.classList.add("__ML-nav-active");
-  });
-};
-
-const addUserMenutoNavbar = (nav) => {
-  const originalUserMenu = document.getElementsByClassName("global-nav__me")[0];
-  if (!originalUserMenu) {
-    return;
-  }
-
-  //   const originalUserMenuCloned = originalUserMenu.cloneNode(true);
-  //   originalUserMenuCloned.addEventListener('click', originalUserMenu.onclick)
-
-  const originalUserMenuLabel = originalUserMenu.getElementsByClassName(
-    "global-nav__primary-link-text"
-  )[0];
-  if (!originalUserMenuLabel) {
-    return;
-  }
-
-  // Remove the text "Me"
-  let menuLabelChild = originalUserMenuLabel.firstChild;
-  while (menuLabelChild) {
-    let nextChild = menuLabelChild.nextSibling;
-    if (menuLabelChild.nodeType == 3) {
-      originalUserMenuLabel.removeChild(menuLabelChild);
-    }
-    menuLabelChild = nextChild;
-  }
-  const newUserMenuContainer = nav.getElementsByClassName("__ML-nav-user")[0];
-  newUserMenuContainer.insertBefore(originalUserMenu, null);
-};
-
-const prepareNavbar = (html) => {
-  const nav = document.createElement("header");
-  nav.innerHTML = html;
-
-  addLogoToNavbar(nav);
-  addIconsToNavMenu(nav);
-  setActiveNavItem(nav);
-  addUserMenutoNavbar(nav);
-
-  return nav;
-};
-
-const addSimpleNavbar = () => {
-  //   already exists
-  if (document.querySelectorAll("header:has(> .__ML-nav)").length > 0) return;
-
-  fetch(chrome.runtime.getURL("partials/nav.html"))
+  fetch(chrome.runtime.getURL("images/icon.svg"))
     .then((response) => response.text())
-    .then((html) => {
-      const preparedNav = prepareNavbar(html);
-      let nav = document.getElementById("global-nav");
-      //   nav.parentNode.replaceChild(preparedNav, nav);
-      nav.parentNode.insertBefore(preparedNav, nav);
+    .then((svg) => {
+      let logoContainer = document.querySelector(
+        ".global-nav__branding-logo li-icon[type=app-linkedin-bug-color-icon]"
+      );
+      let original = logoContainer.querySelector("svg");
+      original.classList.add("__ML-logo-original");
+      addStyle(original, "display", "none");
+
+      let newLogo = htmlToElement(svg);
+      newLogo.classList.add("__ML-logo-new");
+      logoContainer.append(newLogo);
     });
 };
 
-const simplifyNavbar = (toApply = true) => {
+const replaceNavbarLogoToOld = () => {
+  let logoContainer = document.querySelector(
+    ".global-nav__branding-logo li-icon[type=app-linkedin-bug-color-icon]"
+  );
+  let logos = logoContainer.querySelectorAll("svg");
+
+  logos.forEach((logo) => {
+    if (logo.classList.contains("__ML-logo-new")) {
+      logo.remove();
+    } else {
+      removeStyle(logo, "display");
+    }
+  });
+};
+
+const replaceNavBrand = (toApply = true) => {
   if (!toApply) {
-    addStyleByQuery(".global-nav__a11y-menu", "display", "flex");
-    addStyleByQuery(".global-nav", "display", "block");
-    addStyleByQuery(".__ML-nav", "display", "none");
+    replaceNavbarLogoToOld();
   } else {
-    addSimpleNavbar();
-    removeStyleByQuery(".global-nav__a11y-menu", "display");
-    removeStyleByQuery(".global-nav", "display");
+    replaceNavbarLogoToNew();
   }
+};
+
+const simplifyNavbar = (toApply = true) => {
+  // nothing to do as everything is handled by dependant configs
 };
 
 const hideNavLabels = (toApply = true) => {
   if (!toApply) {
-    addStyleByQuery("span.__ML-nav-label", "display", "block");
+    addStyleByQuery("span.global-nav__primary-link-text", "display", "block");
   } else {
-    removeStyleByQuery("span.__ML-nav-label", "display");
+    removeStyleByQuery("span.global-nav__primary-link-text", "display");
   }
 };
 
-const hideNavLink = (link) => {
-  const query = `li.__ML-nav-${link}`;
+const hideNavLink = (label) => {
+  const query = `.global-nav nav li:has(span.global-nav__primary-link-text[title="${label}"])`;
   return (toApply = true) => {
     if (!toApply) {
       removeStyleByQuery(query, "display");
@@ -236,6 +190,21 @@ const hideFloatingMessaging = (toApply = true) => {
 
 // FEED
 
+const hideFeedSorter = (toApply = true) => {
+  if (!toApply) {
+    addStyleByQuery(
+      "div:has(> button > hr.feed-index-sort-border)",
+      "display",
+      "block"
+    );
+  } else {
+    removeStyleByQuery(
+      "div:has(> button > hr.feed-index-sort-border)",
+      "display"
+    );
+  }
+};
+
 const hideFeedAds = (toApply = true) => {
   const nodes = document.querySelectorAll(".update-components-actor");
 
@@ -258,23 +227,54 @@ const hideFeedPostContext = (toApply) => {
   }
 };
 
-const simplifyFeedPostAuthor = (toApply) => {
+const hideFeedPostAuthorBio = (toApply = true) => {
   if (!toApply) {
-    addStyleByQuery(".update-components-actor__meta", "display", "block");
     addStyleByQuery(
       ".update-components-actor__description",
       "display",
       "block"
     );
+  } else {
+    removeStyleByQuery(".update-components-actor__description", "display");
+  }
+};
+
+const hideFeedPostTime = (toApply = true) => {
+  if (!toApply) {
+    removeStyleByQuery(".update-components-actor__sub-description", "display");
+  } else {
     addStyleByQuery(
       ".update-components-actor__sub-description",
+      "display",
+      "none"
+    );
+  }
+};
+
+const hideFeedFollowButton = (toApply = true) => {
+  if (!toApply) {
+    addStyleByQuery(
+      ".update-components-actor__follow-button",
       "display",
       "block"
     );
   } else {
-    removeStyleByQuery(".update-components-actor__meta", "display");
-    removeStyleByQuery(".update-components-actor__description", "display");
-    removeStyleByQuery(".update-components-actor__sub-description", "display");
+    removeStyleByQuery(".update-components-actor__follow-button", "display");
+  }
+};
+
+const hideFeedJobsCarousel = (toApply = true) => {
+  if (!toApply) {
+    addStyleByQuery(
+      "div:has(>div[data-id] .update-components-carousel--jobs)",
+      "display",
+      "block"
+    );
+  } else {
+    removeStyleByQuery(
+      "div:has(>div[data-id] .update-components-carousel--jobs)",
+      "display"
+    );
   }
 };
 
@@ -282,12 +282,16 @@ const simplifyFeedPostAuthor = (toApply) => {
 
 window.handlers = {
   "nav:simplify": simplifyNavbar,
+  "nav:brand:replace": replaceNavBrand,
   "nav:labels:hide": hideNavLabels,
-  "nav:home:hide": hideNavLink("home"),
-  "nav:my_network:hide": hideNavLink("network"),
-  "nav:jobs:hide": hideNavLink("jobs"),
-  "nav:messaging:hide": hideNavLink("messages"),
-  "nav:notifications:hide": hideNavLink("notifications"),
+  "nav:home:hide": hideNavLink("Home"),
+  "nav:my_network:hide": hideNavLink("My Network"),
+  "nav:jobs:hide": hideNavLink("Jobs"),
+  "nav:messaging:hide": hideNavLink("Messaging"),
+  "nav:notifications:hide": hideNavLink("Notifications"),
+  "nav:work:hide": hideNavLink("Work"),
+  "nav:recruiter:hide": hideNavLink("Recruiter"),
+  "nav:advertise:hide": hideNavLink("Advertise"),
 
   "floating_messaging:hide": hideFloatingMessaging,
   "floating_messaging:hide": hideFloatingMessaging,
@@ -302,7 +306,11 @@ window.handlers = {
   "right_pane:ads:hide": hideRightPaneAds,
   "footer:hide": hideFooter,
 
+  "feed:sorter:hide": hideFeedSorter,
   "feed:ads:hide": hideFeedAds,
+  "feed:jobs:hide": hideFeedJobsCarousel,
   "feed:post_context:hide": hideFeedPostContext,
-  "feed:post_author:simplify": simplifyFeedPostAuthor,
+  "feed:post_author_bio:hide": hideFeedPostAuthorBio,
+  "feed:post_time:hide": hideFeedPostTime,
+  "feed:follow:hide": hideFeedFollowButton,
 };
