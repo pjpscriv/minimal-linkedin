@@ -36,5 +36,12 @@
     "/chrome/partials/config-shortcut.html": "/chrome/partials/config-shortcut.html",
     "/chrome/partials/nav.html": "/chrome/partials/nav.html",
     "/chrome/pages/config.html": "/chrome/pages/config.html",
-    "/chrome/pages/index.html": "/chrome/pages/index.html"
+    "/chrome/pages/index.html": "/chrome/pages/index.html",
+    "/chrome/images/config/minimal-logo.svg": "/chrome/images/config/minimal-logo.svg",
+    "/chrome/images/config/Unconfirmed 208279.crdownload": "/chrome/images/config/Unconfirmed 208279.crdownload",
+    "/chrome/images/config/sort.svg": "/chrome/images/config/sort.svg",
+    "/chrome/images/config/Unconfirmed 903681.crdownload": "/chrome/images/config/Unconfirmed 903681.crdownload",
+    "/chrome/images/config/time.svg": "/chrome/images/config/time.svg",
+    "/chrome/images/config/Unconfirmed 106791.crdownload": "/chrome/images/config/Unconfirmed 106791.crdownload",
+    "/chrome/images/config/follow.svg": "/chrome/images/config/follow.svg"
 }

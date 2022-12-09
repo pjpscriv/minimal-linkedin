@@ -43,6 +43,11 @@ var init = function init() {
           collapsible: true,
           is_collapsed: true,
           options: [{
+            key: "nav:brand:replace",
+            icon: "config/minimal-logo.svg",
+            name: "Use Minimal LinkedIn Logo",
+            "default": true
+          }, {
             key: "nav:labels:hide",
             icon: "config/label.svg",
             name: "Hide Labels",
@@ -134,9 +139,19 @@ var init = function init() {
           collapsible: true,
           is_collapsed: true,
           options: [{
+            key: "feed:sorter:hide",
+            icon: "config/sort.svg",
+            name: "Hide Feed Sorter",
+            "default": true
+          }, {
             key: "feed:ads:hide",
             icon: "config/ads.svg",
             name: "Hide Promoted Posts",
+            "default": true
+          }, {
+            key: "feed:jobs:hide",
+            icon: "config/work.svg",
+            name: "Hide Jobs Carousel",
             "default": true
           }, {
             key: "feed:post_context:hide",
@@ -145,10 +160,19 @@ var init = function init() {
             description: "Hide 'Your friend likes this' above posts.",
             "default": true
           }, {
-            key: "feed:post_author:simplify",
+            key: "feed:post_author_bio:hide",
             icon: "config/person.svg",
-            name: "Simplify Post's Author",
-            description: "Hides the author's bio and post's timestamp.",
+            name: "Hide Post Author's Bio",
+            "default": true
+          }, {
+            key: "feed:post_time:hide",
+            icon: "config/time.svg",
+            name: "Hide Post's Timestamp",
+            "default": false
+          }, {
+            key: "feed:follow:hide",
+            icon: "config/follow.svg",
+            name: "Hide +Follow Button",
             "default": true
           }]
         }]
@@ -182,6 +206,7 @@ var init = function init() {
       adjustDependableSettings: function adjustDependableSettings(key) {
         var _this3 = this;
         var dependencies = {
+          "nav:simplify": ["nav:brand:replace", "nav:labels:hide", "nav:work:hide", "nav:recruiter:hide", "nav:advertise:hide"],
           "left_pane:hide": ["left_pane:profile:hide", "left_pane:pages:hide", "left_pane:extras:hide"],
           "right_pane:hide": ["right_pane:news:hide", "right_pane:ads:hide", "footer:hide"],
           "feed:simplify": ["feed:ads:hide", "feed:post_context:hide", "feed:post_author:simplify"]

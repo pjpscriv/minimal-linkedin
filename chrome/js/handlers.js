@@ -151,33 +151,26 @@ var replaceNavbarLogoToOld = function replaceNavbarLogoToOld() {
   var logoContainer = document.querySelector(".global-nav__branding-logo li-icon[type=app-linkedin-bug-color-icon]");
   var logos = logoContainer.querySelectorAll("svg");
   logos.forEach(function (logo) {
-    if (!logo.classList.contains("__ML-logo-original")) {
+    if (logo.classList.contains("__ML-logo-new")) {
       logo.remove();
     } else {
       removeStyle(logo, "display");
     }
   });
 };
-var simplifyNavbar = function simplifyNavbar() {
+var replaceNavBrand = function replaceNavBrand() {
   var toApply = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
   if (!toApply) {
     replaceNavbarLogoToOld();
-    addStyleByQuery(".global-nav__a11y-menu", "display", "flex");
-    addStyleByQuery(".global-nav", "display", "block");
-    // addStyleByQuery(".__ML-nav", "display", "none");
-
-    addStyleByQuery(".global-nav nav li", "display", "block");
-    addStyleByQuery("span.global-nav__primary-link-text", "display", "flex");
   } else {
-    // addSimpleNavbar();
-    // removeStyleByQuery(".__ML-nav", "display");
     replaceNavbarLogoToNew();
-    removeStyleByQuery(".global-nav__a11y-menu", "display");
-    removeStyleByQuery(".global-nav", "display");
-    removeStyleByQuery(".global-nav nav li", "display");
-    removeStyleByQuery("span.global-nav__primary-link-text", "display");
   }
 };
+var simplifyNavbar = function simplifyNavbar() {
+  var toApply = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+} // nothing to do as everything is handled by dependant configs
+;
+
 var hideNavLabels = function hideNavLabels() {
   var toApply = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
   if (!toApply) {
@@ -284,6 +277,14 @@ var hideFloatingMessaging = function hideFloatingMessaging() {
 
 // FEED
 
+var hideFeedSorter = function hideFeedSorter() {
+  var toApply = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+  if (!toApply) {
+    addStyleByQuery("div:has(> button > hr.feed-index-sort-border)", "display", "block");
+  } else {
+    removeStyleByQuery("div:has(> button > hr.feed-index-sort-border)", "display");
+  }
+};
 var hideFeedAds = function hideFeedAds() {
   var toApply = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
   var nodes = document.querySelectorAll(".update-components-actor");
@@ -304,15 +305,36 @@ var hideFeedPostContext = function hideFeedPostContext(toApply) {
     removeStyleByQuery(".update-components-header", "display");
   }
 };
-var simplifyFeedPostAuthor = function simplifyFeedPostAuthor(toApply) {
+var hideFeedPostAuthorBio = function hideFeedPostAuthorBio() {
+  var toApply = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
   if (!toApply) {
-    addStyleByQuery(".update-components-actor__meta", "display", "block");
     addStyleByQuery(".update-components-actor__description", "display", "block");
-    addStyleByQuery(".update-components-actor__sub-description", "display", "block");
   } else {
-    removeStyleByQuery(".update-components-actor__meta", "display");
     removeStyleByQuery(".update-components-actor__description", "display");
+  }
+};
+var hideFeedPostTime = function hideFeedPostTime() {
+  var toApply = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+  if (!toApply) {
     removeStyleByQuery(".update-components-actor__sub-description", "display");
+  } else {
+    addStyleByQuery(".update-components-actor__sub-description", "display", "none");
+  }
+};
+var hideFeedFollowButton = function hideFeedFollowButton() {
+  var toApply = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+  if (!toApply) {
+    addStyleByQuery(".update-components-actor__follow-button", "display", "block");
+  } else {
+    removeStyleByQuery(".update-components-actor__follow-button", "display");
+  }
+};
+var hideFeedJobsCarousel = function hideFeedJobsCarousel() {
+  var toApply = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+  if (!toApply) {
+    addStyleByQuery("div:has(>div[data-id] .update-components-carousel--jobs)", "display", "block");
+  } else {
+    removeStyleByQuery("div:has(>div[data-id] .update-components-carousel--jobs)", "display");
   }
 };
 
@@ -320,6 +342,7 @@ var simplifyFeedPostAuthor = function simplifyFeedPostAuthor(toApply) {
 
 window.handlers = (_window$handlers = {
   "nav:simplify": simplifyNavbar,
+  "nav:brand:replace": replaceNavBrand,
   "nav:labels:hide": hideNavLabels,
   "nav:home:hide": hideNavLink("Home"),
   "nav:my_network:hide": hideNavLink("My Network"),
@@ -330,7 +353,7 @@ window.handlers = (_window$handlers = {
   "nav:recruiter:hide": hideNavLink("Recruiter"),
   "nav:advertise:hide": hideNavLink("Advertise"),
   "floating_messaging:hide": hideFloatingMessaging
-}, _defineProperty(_window$handlers, "floating_messaging:hide", hideFloatingMessaging), _defineProperty(_window$handlers, "left_pane:hide", hideLeftPane), _defineProperty(_window$handlers, "left_pane:profile:hide", hideLeftPaneProfile), _defineProperty(_window$handlers, "left_pane:pages:hide", hideLeftPanePages), _defineProperty(_window$handlers, "left_pane:extras:hide", hideLeftPaneExtras), _defineProperty(_window$handlers, "right_pane:hide", hideRightPane), _defineProperty(_window$handlers, "right_pane:news:hide", hideRightPaneNews), _defineProperty(_window$handlers, "right_pane:ads:hide", hideRightPaneAds), _defineProperty(_window$handlers, "footer:hide", hideFooter), _defineProperty(_window$handlers, "feed:ads:hide", hideFeedAds), _defineProperty(_window$handlers, "feed:post_context:hide", hideFeedPostContext), _defineProperty(_window$handlers, "feed:post_author:simplify", simplifyFeedPostAuthor), _window$handlers);
+}, _defineProperty(_window$handlers, "floating_messaging:hide", hideFloatingMessaging), _defineProperty(_window$handlers, "left_pane:hide", hideLeftPane), _defineProperty(_window$handlers, "left_pane:profile:hide", hideLeftPaneProfile), _defineProperty(_window$handlers, "left_pane:pages:hide", hideLeftPanePages), _defineProperty(_window$handlers, "left_pane:extras:hide", hideLeftPaneExtras), _defineProperty(_window$handlers, "right_pane:hide", hideRightPane), _defineProperty(_window$handlers, "right_pane:news:hide", hideRightPaneNews), _defineProperty(_window$handlers, "right_pane:ads:hide", hideRightPaneAds), _defineProperty(_window$handlers, "footer:hide", hideFooter), _defineProperty(_window$handlers, "feed:sorter:hide", hideFeedSorter), _defineProperty(_window$handlers, "feed:ads:hide", hideFeedAds), _defineProperty(_window$handlers, "feed:jobs:hide", hideFeedJobsCarousel), _defineProperty(_window$handlers, "feed:post_context:hide", hideFeedPostContext), _defineProperty(_window$handlers, "feed:post_author_bio:hide", hideFeedPostAuthorBio), _defineProperty(_window$handlers, "feed:post_time:hide", hideFeedPostTime), _defineProperty(_window$handlers, "feed:follow:hide", hideFeedFollowButton), _window$handlers);
 
 /***/ }),
 

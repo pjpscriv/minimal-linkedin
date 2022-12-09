@@ -31,7 +31,8 @@ const setDefaultSettings = () => {
     "right_pane:hide": true,
     "feed:simplify": true,
     "floating_messaging:hide": true,
-    "nav:labels:hide": false,
+    "nav:brand:replace": true,
+    "nav:labels:hide": true,
     "nav:home:hide": false,
     "nav:my_network:hide": false,
     "nav:jobs:hide": false,
@@ -47,8 +48,11 @@ const setDefaultSettings = () => {
     "right_pane:ads:hide": true,
     "footer:hide": true,
     "feed:ads:hide": true,
+    "feed:jobs:hide": true,
     "feed:post_context:hide": true,
-    "feed:post_author:simplify": true,
+    "feed:post_author_bio:hide": true,
+    "feed:post_time:hide": false,
+    "feed:follow:hide": true,
   };
   return chrome.storage.sync.set({ [PERSISTED_KEY_SETTINGS]: defaults });
 };
@@ -72,18 +76,6 @@ const applySettings = (settings, group) => {
 
     const handler = handlers[key];
     handler(settings[key]);
-
-    // apply all nav-based configs
-    if (key === "nav:simplify") {
-      loadAndApplySettings([
-        "nav:labels:hide",
-        "nav:home:hide",
-        "nav:my_network:hide",
-        "nav:jobs:hide",
-        "nav:messaging:hide",
-        "nav:notifications:hide",
-      ]);
-    }
   });
 };
 

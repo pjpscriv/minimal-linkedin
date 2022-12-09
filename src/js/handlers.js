@@ -187,7 +187,7 @@ const replaceNavbarLogoToOld = () => {
   let logos = logoContainer.querySelectorAll("svg");
 
   logos.forEach((logo) => {
-    if (!logo.classList.contains("__ML-logo-original")) {
+    if (logo.classList.contains("__ML-logo-new")) {
       logo.remove();
     } else {
       removeStyle(logo, "display");
@@ -195,25 +195,16 @@ const replaceNavbarLogoToOld = () => {
   });
 };
 
-const simplifyNavbar = (toApply = true) => {
+const replaceNavBrand = (toApply = true) => {
   if (!toApply) {
     replaceNavbarLogoToOld();
-    addStyleByQuery(".global-nav__a11y-menu", "display", "flex");
-    addStyleByQuery(".global-nav", "display", "block");
-    // addStyleByQuery(".__ML-nav", "display", "none");
-
-    addStyleByQuery(".global-nav nav li", "display", "block");
-    addStyleByQuery("span.global-nav__primary-link-text", "display", "flex");
   } else {
-    // addSimpleNavbar();
-    // removeStyleByQuery(".__ML-nav", "display");
     replaceNavbarLogoToNew();
-    removeStyleByQuery(".global-nav__a11y-menu", "display");
-    removeStyleByQuery(".global-nav", "display");
-
-    removeStyleByQuery(".global-nav nav li", "display");
-    removeStyleByQuery("span.global-nav__primary-link-text", "display");
   }
+};
+
+const simplifyNavbar = (toApply = true) => {
+  // nothing to do as everything is handled by dependant configs
 };
 
 const hideNavLabels = (toApply = true) => {
@@ -324,6 +315,21 @@ const hideFloatingMessaging = (toApply = true) => {
 
 // FEED
 
+const hideFeedSorter = (toApply = true) => {
+  if (!toApply) {
+    addStyleByQuery(
+      "div:has(> button > hr.feed-index-sort-border)",
+      "display",
+      "block"
+    );
+  } else {
+    removeStyleByQuery(
+      "div:has(> button > hr.feed-index-sort-border)",
+      "display"
+    );
+  }
+};
+
 const hideFeedAds = (toApply = true) => {
   const nodes = document.querySelectorAll(".update-components-actor");
 
@@ -346,23 +352,54 @@ const hideFeedPostContext = (toApply) => {
   }
 };
 
-const simplifyFeedPostAuthor = (toApply) => {
+const hideFeedPostAuthorBio = (toApply = true) => {
   if (!toApply) {
-    addStyleByQuery(".update-components-actor__meta", "display", "block");
     addStyleByQuery(
       ".update-components-actor__description",
       "display",
       "block"
     );
+  } else {
+    removeStyleByQuery(".update-components-actor__description", "display");
+  }
+};
+
+const hideFeedPostTime = (toApply = true) => {
+  if (!toApply) {
+    removeStyleByQuery(".update-components-actor__sub-description", "display");
+  } else {
     addStyleByQuery(
       ".update-components-actor__sub-description",
+      "display",
+      "none"
+    );
+  }
+};
+
+const hideFeedFollowButton = (toApply = true) => {
+  if (!toApply) {
+    addStyleByQuery(
+      ".update-components-actor__follow-button",
       "display",
       "block"
     );
   } else {
-    removeStyleByQuery(".update-components-actor__meta", "display");
-    removeStyleByQuery(".update-components-actor__description", "display");
-    removeStyleByQuery(".update-components-actor__sub-description", "display");
+    removeStyleByQuery(".update-components-actor__follow-button", "display");
+  }
+};
+
+const hideFeedJobsCarousel = (toApply = true) => {
+  if (!toApply) {
+    addStyleByQuery(
+      "div:has(>div[data-id] .update-components-carousel--jobs)",
+      "display",
+      "block"
+    );
+  } else {
+    removeStyleByQuery(
+      "div:has(>div[data-id] .update-components-carousel--jobs)",
+      "display"
+    );
   }
 };
 
@@ -370,6 +407,7 @@ const simplifyFeedPostAuthor = (toApply) => {
 
 window.handlers = {
   "nav:simplify": simplifyNavbar,
+  "nav:brand:replace": replaceNavBrand,
   "nav:labels:hide": hideNavLabels,
   "nav:home:hide": hideNavLink("Home"),
   "nav:my_network:hide": hideNavLink("My Network"),
@@ -393,7 +431,11 @@ window.handlers = {
   "right_pane:ads:hide": hideRightPaneAds,
   "footer:hide": hideFooter,
 
+  "feed:sorter:hide": hideFeedSorter,
   "feed:ads:hide": hideFeedAds,
+  "feed:jobs:hide": hideFeedJobsCarousel,
   "feed:post_context:hide": hideFeedPostContext,
-  "feed:post_author:simplify": simplifyFeedPostAuthor,
+  "feed:post_author_bio:hide": hideFeedPostAuthorBio,
+  "feed:post_time:hide": hideFeedPostTime,
+  "feed:follow:hide": hideFeedFollowButton,
 };
