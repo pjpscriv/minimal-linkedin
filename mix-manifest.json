@@ -13,7 +13,6 @@
     "/chrome/images/config/description.svg": "/chrome/images/config/description.svg",
     "/chrome/images/config/feed.svg": "/chrome/images/config/feed.svg",
     "/chrome/images/config/footer.svg": "/chrome/images/config/footer.svg",
-    "/chrome/images/config/jobs.svg": "/chrome/images/config/jobs.svg",
     "/chrome/images/config/label.svg": "/chrome/images/config/label.svg",
     "/chrome/images/config/left-pane.svg": "/chrome/images/config/left-pane.svg",
     "/chrome/images/config/messages.svg": "/chrome/images/config/messages.svg",
@@ -22,7 +21,6 @@
     "/chrome/images/config/notifications.svg": "/chrome/images/config/notifications.svg",
     "/chrome/images/config/person.svg": "/chrome/images/config/person.svg",
     "/chrome/images/config/right-pane.svg": "/chrome/images/config/right-pane.svg",
-    "/chrome/images/config/work.svg": "/chrome/images/config/work.svg",
     "/chrome/images/icon-chevron-down.svg": "/chrome/images/icon-chevron-down.svg",
     "/chrome/images/icon-chevron-up.svg": "/chrome/images/icon-chevron-up.svg",
     "/chrome/images/icon-settings.svg": "/chrome/images/icon-settings.svg",
@@ -36,12 +34,5 @@
     "/chrome/partials/config-shortcut.html": "/chrome/partials/config-shortcut.html",
     "/chrome/partials/nav.html": "/chrome/partials/nav.html",
     "/chrome/pages/config.html": "/chrome/pages/config.html",
-    "/chrome/pages/index.html": "/chrome/pages/index.html",
-    "/chrome/images/config/minimal-logo.svg": "/chrome/images/config/minimal-logo.svg",
-    "/chrome/images/config/Unconfirmed 208279.crdownload": "/chrome/images/config/Unconfirmed 208279.crdownload",
-    "/chrome/images/config/sort.svg": "/chrome/images/config/sort.svg",
-    "/chrome/images/config/Unconfirmed 903681.crdownload": "/chrome/images/config/Unconfirmed 903681.crdownload",
-    "/chrome/images/config/time.svg": "/chrome/images/config/time.svg",
-    "/chrome/images/config/Unconfirmed 106791.crdownload": "/chrome/images/config/Unconfirmed 106791.crdownload",
-    "/chrome/images/config/follow.svg": "/chrome/images/config/follow.svg"
+    "/chrome/pages/index.html": "/chrome/pages/index.html"
 }
