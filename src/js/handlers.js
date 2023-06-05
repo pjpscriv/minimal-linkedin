@@ -90,6 +90,14 @@ const hideNavLabels = (toApply = true) => {
   }
 };
 
+const hideDots = (toApply = true) => {
+  if (!toApply) {
+    addStyleByQuery(".notification-badge--show", "opacity", "1");
+  } else {
+    addStyleByQuery(".notification-badge--show", "opacity", "0");
+  }
+};
+
 const hideNavLink = (label) => {
   const query = `.global-nav nav li:has(span.global-nav__primary-link-text[title="${label}"])`;
   return (toApply = true) => {
@@ -283,6 +291,15 @@ const hideFeedJobsCarousel = (toApply = true) => {
 window.handlers = {
   "nav:simplify": simplifyNavbar,
   "nav:brand:replace": replaceNavBrand,
+  "nav:dots:hide": hideDots,
+  "nav:labels:hide": hideNavLabels,
+  "nav:home:hide": hideNavLink("Home"),
+  "nav:my_network:hide": hideNavLink("My Network"),
+  "nav:jobs:hide": hideNavLink("Jobs"),
+  "nav:messaging:hide": hideNavLink("Messaging"),
+  "nav:notifications:hide": hideNavLink("Notifications"),
+  "nav:work:hide": hideNavLink("Work"),
+
   "nav:labels:hide": hideNavLabels,
   "nav:home:hide": hideNavLink("Home"),
   "nav:my_network:hide": hideNavLink("My Network"),

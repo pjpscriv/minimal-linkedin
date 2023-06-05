@@ -54,6 +54,12 @@ var init = function () {
                 default: true,
               },
               {
+                key: "nav:dots:hide",
+                icon: "config/dots.svg",
+                name: "Hide Notification Dots",
+                default: false,
+              },
+              {
                 key: "nav:labels:hide",
                 icon: "config/label.svg",
                 name: "Hide Labels",
