@@ -189,9 +189,9 @@ const hideFooter = (toApply = true) => {
 // MESSAGING OVERLAY
 const hideFloatingMessaging = (toApply = true) => {
   if (!toApply) {
-    addStyleByQuery("#msg-overlay", "display", "flex");
+    addStyleByQuery(".msg-overlay-list-bubble", "display", "flex");
   } else {
-    removeStyleByQuery("#msg-overlay", "display");
+    removeStyleByQuery(".msg-overlay-list-bubble", "display");
   }
 };
 // END MESSAGING OVERLAY

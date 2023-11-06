@@ -68,7 +68,7 @@ aside.scaffold-layout__aside {
 }
 
 /* ✉️ Messaging */
-#msg-overlay {
+.msg-overlay-list-bubble {
     display: none !important;
 }
 

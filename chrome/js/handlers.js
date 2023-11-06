@@ -187,9 +187,9 @@ var hideFooter = function hideFooter() {
 var hideFloatingMessaging = function hideFloatingMessaging() {
   var toApply = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
   if (!toApply) {
-    addStyleByQuery("#msg-overlay", "display", "flex");
+    addStyleByQuery(".msg-overlay-list-bubble", "display", "flex");
   } else {
-    removeStyleByQuery("#msg-overlay", "display");
+    removeStyleByQuery(".msg-overlay-list-bubble", "display");
   }
 };
 // END MESSAGING OVERLAY

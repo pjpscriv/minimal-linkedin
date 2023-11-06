@@ -1,7 +1,7 @@
 {
-  "name": "Minimal LinkedIn",
+  "name": "Minimal Theme for LinkedIn",
   "description": "Minimal Theme for LinkedIn",
-  "version": "2.1",
+  "version": "3.0",
   "manifest_version": 3,
   "icons": {
     "128": "images/icon.png"
