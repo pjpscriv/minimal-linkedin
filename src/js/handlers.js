@@ -214,7 +214,7 @@ const hideFeedSorter = (toApply = true) => {
 };
 
 const hideFeedAds = (toApply = true) => {
-  const nodes = document.querySelectorAll(".update-components-actor");
+  const nodes = document.querySelectorAll(".scaffold-finite-scroll__content > div");
 
   nodes.forEach((node) => {
     if (node.textContent.includes("Promoted")) {
